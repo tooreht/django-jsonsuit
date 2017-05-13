@@ -1,0 +1,144 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "django-jsonsuit\n\n\nDjango goodies to dress JSON data in a suit.\n\n\nQuickstart\n\n\nInstall django-jsonsuit:\n\n\npip install django-jsonsuit\n\n\n\nAdd it to your \nINSTALLED_APPS\n:\n\n\nINSTALLED_APPS = (\n    ...\n    'jsonsuit.apps.JSONSuitConfig',\n    ...\n)\n\n\n\n\nUsage\n\n\nIn a form or model admin, enable a JSON suit for a particular field:\n\n\nfrom jsonsuit import JSONSuit\n\nclass JSONForm(forms.ModelForm):\n  class Meta:\n    model = Test\n    fields = '__all__'\n    widgets = {\n      'myjsonfield': JSONSuit(),\n    }\n\nclass JSONAdmin(admin.ModelAdmin):\n  form = JSONForm\n\n\n\n\nEnable JSON suit for every JSONField of a model:\n\n\nfrom django.contrib.postgres.fields import JSONField\n\nclass JSONAdmin(admin.ModelAdmin):\n  formfield_overrides = {\n    JSONField: {'widget': JSONSuit }\n  }\n\n\n\n\nFeatures\n\n\n\n\nTODO\n\n\n\n\nRunning Tests\n\n\nDoes the code actually work?\n\n\nsource <YOURVIRTUALENV>/bin/activate\n(myenv) $ pip install tox\n(myenv) $ tox",
+            "title": "Home"
+        },
+        {
+            "location": "/#django-jsonsuit",
+            "text": "Django goodies to dress JSON data in a suit.",
+            "title": "django-jsonsuit"
+        },
+        {
+            "location": "/#quickstart",
+            "text": "Install django-jsonsuit:  pip install django-jsonsuit  Add it to your  INSTALLED_APPS :  INSTALLED_APPS = (\n    ...\n    'jsonsuit.apps.JSONSuitConfig',\n    ...\n)",
+            "title": "Quickstart"
+        },
+        {
+            "location": "/#usage",
+            "text": "In a form or model admin, enable a JSON suit for a particular field:  from jsonsuit import JSONSuit\n\nclass JSONForm(forms.ModelForm):\n  class Meta:\n    model = Test\n    fields = '__all__'\n    widgets = {\n      'myjsonfield': JSONSuit(),\n    }\n\nclass JSONAdmin(admin.ModelAdmin):\n  form = JSONForm  Enable JSON suit for every JSONField of a model:  from django.contrib.postgres.fields import JSONField\n\nclass JSONAdmin(admin.ModelAdmin):\n  formfield_overrides = {\n    JSONField: {'widget': JSONSuit }\n  }",
+            "title": "Usage"
+        },
+        {
+            "location": "/#features",
+            "text": "TODO",
+            "title": "Features"
+        },
+        {
+            "location": "/#running-tests",
+            "text": "Does the code actually work?  source <YOURVIRTUALENV>/bin/activate\n(myenv) $ pip install tox\n(myenv) $ tox",
+            "title": "Running Tests"
+        },
+        {
+            "location": "/releases/",
+            "text": "Release Notes\n\n\nHistory\n\n\nVersion 0.1.0 (2017-05-12)\n\n\n\n\nFirst release on PyPI.",
+            "title": "Release Notes"
+        },
+        {
+            "location": "/releases/#release-notes",
+            "text": "",
+            "title": "Release Notes"
+        },
+        {
+            "location": "/releases/#history",
+            "text": "",
+            "title": "History"
+        },
+        {
+            "location": "/releases/#version-010-2017-05-12",
+            "text": "First release on PyPI.",
+            "title": "Version 0.1.0 (2017-05-12)"
+        },
+        {
+            "location": "/contributing/",
+            "text": "Contributing\n\n\nContributions are welcome, and they are greatly appreciated! Every\nlittle bit helps, and credit will always be given.\n\n\nYou can contribute in many ways:\n\n\nTypes of Contributions\n\n\nReport Bugs\n\n\nReport bugs at \nhttps://github.com/tooreht/django-jsonsuit/issues\n.\n\n\nIf you are reporting a bug, please include:\n\n\n\n\nYour operating system name and version.\n\n\nAny details about your local setup that might be helpful in\n    troubleshooting.\n\n\nDetailed steps to reproduce the bug.\n\n\n\n\nFix Bugs\n\n\nLook through the GitHub issues for bugs. Anything tagged with \"bug\" is\nopen to whoever wants to implement it.\n\n\nImplement Features\n\n\nLook through the GitHub issues for features. Anything tagged with\n\"feature\" is open to whoever wants to implement it.\n\n\nWrite Documentation\n\n\ndjango-jsonsuit could always use more documentation, whether as part of\nthe official django-jsonsuit docs, in docstrings, or even on the web in\nblog posts, articles, and such.\n\n\nSubmit Feedback\n\n\nThe best way to send feedback is to file an issue at\n\nhttps://github.com/tooreht/django-jsonsuit/issues\n.\n\n\nIf you are proposing a feature:\n\n\n\n\nExplain in detail how it would work.\n\n\nKeep the scope as narrow as possible, to make it easier to\n    implement.\n\n\nRemember that this is a volunteer-driven project, and that\n    contributions are welcome :)\n\n\n\n\nGet Started!\n\n\nReady to contribute? Here's how to set up django-jsonsuit for local\ndevelopment.\n\n\n\n\nFork the django-jsonsuit repo on GitHub.\n\n\n\n\nClone your fork locally:\n\n\n$ git clone git@github.com:your_name_here/django-jsonsuit.git\n\n\n\n\n\n\n\nInstall your local copy into a virtualenv. Assuming you have\n    virtualenvwrapper installed, this is how you set up your fork for\n    local development:\n\n\n$ mkvirtualenv django-jsonsuit\n$ cd django-jsonsuit/\n$ python setup.py develop\n\n\n\n\n\n\n\nCreate a branch for local development:\n\n\n$ git checkout -b name-of-your-bugfix-or-feature\n\n\n\nNow you can make your changes locally.\n\n\n\n\n\n\nWhen you're done making changes, check that your changes pass flake8\n    and the tests, including testing other Python versions with tox:\n\n\n$ flake8 jsonsuit tests\n$ python setup.py test\n$ tox\n\n\n\nTo get flake8 and tox, just pip install them into your virtualenv.\n\n\n\n\n\n\nCommit your changes and push your branch to GitHub:\n\n\n$ git add .\n$ git commit -m \"Your detailed description of your changes.\"\n$ git push origin name-of-your-bugfix-or-feature\n\n\n\n\n\n\n\nSubmit a pull request through the GitHub website.\n\n\n\n\n\n\nPull Request Guidelines\n\n\nBefore you submit a pull request, check that it meets these guidelines:\n\n\n\n\nThe pull request should include tests.\n\n\nIf the pull request adds functionality, the docs should be updated.\n    Put your new functionality into a function with a docstring, and add\n    the feature to the list in README.rst.\n\n\nThe pull request should work for Python 2.6, 2.7, and 3.3, and for\n    PyPy. Check\n    \nhttps://travis-ci.org/tooreht/django-jsonsuit/pull_requests\n and\n    make sure that the tests pass for all supported Python versions.\n\n\n\n\nTips\n\n\nTo run a subset of tests:\n\n\n$ python -m unittest tests.test_jsonsuit",
+            "title": "Contributing"
+        },
+        {
+            "location": "/contributing/#contributing",
+            "text": "Contributions are welcome, and they are greatly appreciated! Every\nlittle bit helps, and credit will always be given.  You can contribute in many ways:",
+            "title": "Contributing"
+        },
+        {
+            "location": "/contributing/#types-of-contributions",
+            "text": "",
+            "title": "Types of Contributions"
+        },
+        {
+            "location": "/contributing/#report-bugs",
+            "text": "Report bugs at  https://github.com/tooreht/django-jsonsuit/issues .  If you are reporting a bug, please include:   Your operating system name and version.  Any details about your local setup that might be helpful in\n    troubleshooting.  Detailed steps to reproduce the bug.",
+            "title": "Report Bugs"
+        },
+        {
+            "location": "/contributing/#fix-bugs",
+            "text": "Look through the GitHub issues for bugs. Anything tagged with \"bug\" is\nopen to whoever wants to implement it.",
+            "title": "Fix Bugs"
+        },
+        {
+            "location": "/contributing/#implement-features",
+            "text": "Look through the GitHub issues for features. Anything tagged with\n\"feature\" is open to whoever wants to implement it.",
+            "title": "Implement Features"
+        },
+        {
+            "location": "/contributing/#write-documentation",
+            "text": "django-jsonsuit could always use more documentation, whether as part of\nthe official django-jsonsuit docs, in docstrings, or even on the web in\nblog posts, articles, and such.",
+            "title": "Write Documentation"
+        },
+        {
+            "location": "/contributing/#submit-feedback",
+            "text": "The best way to send feedback is to file an issue at https://github.com/tooreht/django-jsonsuit/issues .  If you are proposing a feature:   Explain in detail how it would work.  Keep the scope as narrow as possible, to make it easier to\n    implement.  Remember that this is a volunteer-driven project, and that\n    contributions are welcome :)",
+            "title": "Submit Feedback"
+        },
+        {
+            "location": "/contributing/#get-started",
+            "text": "Ready to contribute? Here's how to set up django-jsonsuit for local\ndevelopment.   Fork the django-jsonsuit repo on GitHub.   Clone your fork locally:  $ git clone git@github.com:your_name_here/django-jsonsuit.git    Install your local copy into a virtualenv. Assuming you have\n    virtualenvwrapper installed, this is how you set up your fork for\n    local development:  $ mkvirtualenv django-jsonsuit\n$ cd django-jsonsuit/\n$ python setup.py develop    Create a branch for local development:  $ git checkout -b name-of-your-bugfix-or-feature  Now you can make your changes locally.    When you're done making changes, check that your changes pass flake8\n    and the tests, including testing other Python versions with tox:  $ flake8 jsonsuit tests\n$ python setup.py test\n$ tox  To get flake8 and tox, just pip install them into your virtualenv.    Commit your changes and push your branch to GitHub:  $ git add .\n$ git commit -m \"Your detailed description of your changes.\"\n$ git push origin name-of-your-bugfix-or-feature    Submit a pull request through the GitHub website.",
+            "title": "Get Started!"
+        },
+        {
+            "location": "/contributing/#pull-request-guidelines",
+            "text": "Before you submit a pull request, check that it meets these guidelines:   The pull request should include tests.  If the pull request adds functionality, the docs should be updated.\n    Put your new functionality into a function with a docstring, and add\n    the feature to the list in README.rst.  The pull request should work for Python 2.6, 2.7, and 3.3, and for\n    PyPy. Check\n     https://travis-ci.org/tooreht/django-jsonsuit/pull_requests  and\n    make sure that the tests pass for all supported Python versions.",
+            "title": "Pull Request Guidelines"
+        },
+        {
+            "location": "/contributing/#tips",
+            "text": "To run a subset of tests:  $ python -m unittest tests.test_jsonsuit",
+            "title": "Tips"
+        },
+        {
+            "location": "/credits/",
+            "text": "Credits\n\n\nAuthors\n\n\nDevelopment Lead\n\n\n\n\nMarc Zimmermann \ntooreht@gmail.com\n\n\n\n\nContributors\n\n\nNone yet. Why not be the first?",
+            "title": "Credits"
+        },
+        {
+            "location": "/credits/#credits",
+            "text": "",
+            "title": "Credits"
+        },
+        {
+            "location": "/credits/#authors",
+            "text": "",
+            "title": "Authors"
+        },
+        {
+            "location": "/credits/#development-lead",
+            "text": "Marc Zimmermann  tooreht@gmail.com",
+            "title": "Development Lead"
+        },
+        {
+            "location": "/credits/#contributors",
+            "text": "None yet. Why not be the first?",
+            "title": "Contributors"
+        },
+        {
+            "location": "/license/",
+            "text": "License\n\n\nMIT License\n\n\nCopyright (c) 2017, Marc Zimmermann\n\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n\n\nThe above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.\n\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+            "title": "License"
+        },
+        {
+            "location": "/license/#license",
+            "text": "MIT License  Copyright (c) 2017, Marc Zimmermann  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.",
+            "title": "License"
+        }
+    ]
+}
