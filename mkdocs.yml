@@ -1,0 +1,11 @@
+site_name: django-jsonsuit
+repo_url: https://github.com/tooreht/django-jsonsuit
+pages:
+    - Home: index.md
+    - About:
+      - Release Notes: releases.md
+      - Contributing: contributing.md
+      - Credits: credits.md
+      - License: license.md
+markdown_extensions:
+    - markdown_include.include

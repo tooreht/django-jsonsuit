@@ -1,0 +1,12 @@
+.jsonsuit pre {
+  max-width: 80vw;
+}
+
+.jsonsuit .button.toggle {
+  display: block;
+  padding: 2px 5px;
+}
+
+.jsonsuit .hidden {
+  display: none;
+}
