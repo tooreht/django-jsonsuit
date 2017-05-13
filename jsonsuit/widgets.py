@@ -1,6 +1,8 @@
 from django.forms import widgets
 from django.template.loader import render_to_string
 
+from .app_settings import WIDGET_MEDIA_JS, WIDGET_MEDIA_CSS
+
 
 class JSONSuit(widgets.Textarea):
     def render(self, name, value, attrs={}):
@@ -10,8 +12,6 @@ class JSONSuit(widgets.Textarea):
             'name': name, 'value': value, 'textarea': textarea})
 
     class Media:
-        js = ('jsonsuit/js/prism.js', 'jsonsuit/js/jsonsuit.js', )
+        js = WIDGET_MEDIA_JS
         # https://docs.djangoproject.com/en/1.9/topics/forms/media/#css
-        css = {
-            'all': ('jsonsuit/css/prism.css', 'jsonsuit/css/jsonsuit.css', )
-        }
+        css = WIDGET_MEDIA_CSS
