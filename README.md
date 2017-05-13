@@ -8,6 +8,12 @@ Django goodies to dress JSON data in a suit.
 
 The full documentation is at <https://tooreht.github.io/django-jsonsuit>.
 
+## Features
+
+- Change JSON syntax highlighter themes
+- Set custom widget media (JS & CSS) files
+- Use custom HTML template
+
 ## Quickstart
 
 Install django-jsonsuit:
@@ -25,6 +31,8 @@ INSTALLED_APPS = (
 ```
 
 ## Usage
+
+### Widget
 
 In a form or model admin, enable a JSON suit for a particular field:
 
@@ -54,9 +62,39 @@ class JSONAdmin(admin.ModelAdmin):
   }
 ```
 
-## Features
+### Theme
 
--   TODO
+Set JSON syntax highlighter theme in settings:
+
+```python
+JSONSUIT_WIDGET_THEME = 'twilight'
+```
+
+Available themes: coy, dark, default, funky, okaidia, solarizedlight, twilight
+
+### Custom Widget Media
+
+Set custom widget media (JS & CSS) files:
+
+```python
+JSONSUIT_WIDGET_MEDIA_JS = (
+    'jsonsuit/js/mysyntaxhighlighter.js', 'jsonsuit/js/myscripts.js'
+)
+
+JSONSUIT_WIDGET_MEDIA_CSS = {
+    'all': ('jsonsuit/css/mytheme.css', 'jsonsuit/css/mystyles.css')
+}
+```
+
+### Custom HTML template
+
+Override `jsonsuit/widget.html` template:
+
+```bash
+jsonsuit/templates
+└── jsonsuit
+    └── widget.html
+```
 
 ## Running Tests
 
