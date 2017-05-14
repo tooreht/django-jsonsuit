@@ -101,9 +101,9 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#django-jsonsuit">django-jsonsuit</a></li>
+            <li><a href="#features">Features</a></li>
             <li><a href="#quickstart">Quickstart</a></li>
             <li><a href="#usage">Usage</a></li>
-            <li><a href="#features">Features</a></li>
             <li><a href="#running-tests">Running Tests</a></li>
     </ul>
 </div></div>
@@ -111,6 +111,12 @@
 
 <h1 id="django-jsonsuit">django-jsonsuit</h1>
 <p>Django goodies to dress JSON data in a suit.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Change JSON syntax highlighter themes</li>
+<li>Set custom widget media (JS &amp; CSS) files</li>
+<li>Use custom HTML template</li>
+</ul>
 <h2 id="quickstart">Quickstart</h2>
 <p>Install django-jsonsuit:</p>
 <pre><code>pip install django-jsonsuit
@@ -124,6 +130,7 @@
 </code></pre>
 
 <h2 id="usage">Usage</h2>
+<h3 id="widget">Widget</h3>
 <p>In a form or model admin, enable a JSON suit for a particular field:</p>
 <pre><code class="python">from jsonsuit.widgets import JSONSuit
 
@@ -132,7 +139,7 @@ class JSONForm(forms.ModelForm):
     model = Test
     fields = '__all__'
     widgets = {
-      'myjsonfield': JSONSuit(),
+      'myjsonfield': JSONSuit,
     }
 
 class JSONAdmin(admin.ModelAdmin):
@@ -144,14 +151,34 @@ class JSONAdmin(admin.ModelAdmin):
 
 class JSONAdmin(admin.ModelAdmin):
   formfield_overrides = {
-    JSONField: {'widget': JSONSuit }
+    JSONField: {'widget': JSONSuit}
   }
 </code></pre>
 
-<h2 id="features">Features</h2>
-<ul>
-<li>TODO</li>
-</ul>
+<h3 id="theme">Theme</h3>
+<p>Set JSON syntax highlighter theme in settings:</p>
+<pre><code class="python">JSONSUIT_WIDGET_THEME = 'twilight'
+</code></pre>
+
+<p>Available themes: coy, dark, default, funky, okaidia, solarizedlight, twilight</p>
+<h3 id="custom-widget-media">Custom Widget Media</h3>
+<p>Set custom widget media (JS &amp; CSS) files:</p>
+<pre><code class="python">JSONSUIT_WIDGET_MEDIA_JS = (
+    'jsonsuit/js/mysyntaxhighlighter.js', 'jsonsuit/js/myscripts.js'
+)
+
+JSONSUIT_WIDGET_MEDIA_CSS = {
+    'all': ('jsonsuit/css/mytheme.css', 'jsonsuit/css/mystyles.css')
+}
+</code></pre>
+
+<h3 id="custom-html-template">Custom HTML template</h3>
+<p>Override <code>jsonsuit/widget.html</code> template:</p>
+<pre><code class="bash">jsonsuit/templates
+└── jsonsuit
+    └── widget.html
+</code></pre>
+
 <h2 id="running-tests">Running Tests</h2>
 <p>Does the code actually work?</p>
 <pre><code>source &lt;YOURVIRTUALENV&gt;/bin/activate
@@ -196,5 +223,5 @@ class JSONAdmin(admin.ModelAdmin):
 
 <!--
 MkDocs version : 0.16.3
-Build Date UTC : 2017-05-13 16:43:29
+Build Date UTC : 2017-05-14 20:31:26
 -->

@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/",
-            "text": "django-jsonsuit\n\n\nDjango goodies to dress JSON data in a suit.\n\n\nQuickstart\n\n\nInstall django-jsonsuit:\n\n\npip install django-jsonsuit\n\n\n\nAdd it to your \nINSTALLED_APPS\n:\n\n\nINSTALLED_APPS = (\n    ...\n    'jsonsuit.apps.JSONSuitConfig',\n    ...\n)\n\n\n\n\nUsage\n\n\nIn a form or model admin, enable a JSON suit for a particular field:\n\n\nfrom jsonsuit.widgets import JSONSuit\n\nclass JSONForm(forms.ModelForm):\n  class Meta:\n    model = Test\n    fields = '__all__'\n    widgets = {\n      'myjsonfield': JSONSuit(),\n    }\n\nclass JSONAdmin(admin.ModelAdmin):\n  form = JSONForm\n\n\n\n\nEnable JSON suit for every JSONField of a model:\n\n\nfrom django.contrib.postgres.fields import JSONField\n\nclass JSONAdmin(admin.ModelAdmin):\n  formfield_overrides = {\n    JSONField: {'widget': JSONSuit }\n  }\n\n\n\n\nFeatures\n\n\n\n\nTODO\n\n\n\n\nRunning Tests\n\n\nDoes the code actually work?\n\n\nsource <YOURVIRTUALENV>/bin/activate\n(myenv) $ pip install tox\n(myenv) $ tox",
+            "text": "django-jsonsuit\n\n\nDjango goodies to dress JSON data in a suit.\n\n\nFeatures\n\n\n\n\nChange JSON syntax highlighter themes\n\n\nSet custom widget media (JS & CSS) files\n\n\nUse custom HTML template\n\n\n\n\nQuickstart\n\n\nInstall django-jsonsuit:\n\n\npip install django-jsonsuit\n\n\n\nAdd it to your \nINSTALLED_APPS\n:\n\n\nINSTALLED_APPS = (\n    ...\n    'jsonsuit.apps.JSONSuitConfig',\n    ...\n)\n\n\n\n\nUsage\n\n\nWidget\n\n\nIn a form or model admin, enable a JSON suit for a particular field:\n\n\nfrom jsonsuit.widgets import JSONSuit\n\nclass JSONForm(forms.ModelForm):\n  class Meta:\n    model = Test\n    fields = '__all__'\n    widgets = {\n      'myjsonfield': JSONSuit,\n    }\n\nclass JSONAdmin(admin.ModelAdmin):\n  form = JSONForm\n\n\n\n\nEnable JSON suit for every JSONField of a model:\n\n\nfrom django.contrib.postgres.fields import JSONField\n\nclass JSONAdmin(admin.ModelAdmin):\n  formfield_overrides = {\n    JSONField: {'widget': JSONSuit}\n  }\n\n\n\n\nTheme\n\n\nSet JSON syntax highlighter theme in settings:\n\n\nJSONSUIT_WIDGET_THEME = 'twilight'\n\n\n\n\nAvailable themes: coy, dark, default, funky, okaidia, solarizedlight, twilight\n\n\nCustom Widget Media\n\n\nSet custom widget media (JS & CSS) files:\n\n\nJSONSUIT_WIDGET_MEDIA_JS = (\n    'jsonsuit/js/mysyntaxhighlighter.js', 'jsonsuit/js/myscripts.js'\n)\n\nJSONSUIT_WIDGET_MEDIA_CSS = {\n    'all': ('jsonsuit/css/mytheme.css', 'jsonsuit/css/mystyles.css')\n}\n\n\n\n\nCustom HTML template\n\n\nOverride \njsonsuit/widget.html\n template:\n\n\njsonsuit/templates\n\u2514\u2500\u2500 jsonsuit\n    \u2514\u2500\u2500 widget.html\n\n\n\n\nRunning Tests\n\n\nDoes the code actually work?\n\n\nsource <YOURVIRTUALENV>/bin/activate\n(myenv) $ pip install tox\n(myenv) $ tox",
             "title": "Home"
         },
         {
@@ -11,19 +11,39 @@
             "title": "django-jsonsuit"
         },
         {
+            "location": "/#features",
+            "text": "Change JSON syntax highlighter themes  Set custom widget media (JS & CSS) files  Use custom HTML template",
+            "title": "Features"
+        },
+        {
             "location": "/#quickstart",
             "text": "Install django-jsonsuit:  pip install django-jsonsuit  Add it to your  INSTALLED_APPS :  INSTALLED_APPS = (\n    ...\n    'jsonsuit.apps.JSONSuitConfig',\n    ...\n)",
             "title": "Quickstart"
         },
         {
             "location": "/#usage",
-            "text": "In a form or model admin, enable a JSON suit for a particular field:  from jsonsuit.widgets import JSONSuit\n\nclass JSONForm(forms.ModelForm):\n  class Meta:\n    model = Test\n    fields = '__all__'\n    widgets = {\n      'myjsonfield': JSONSuit(),\n    }\n\nclass JSONAdmin(admin.ModelAdmin):\n  form = JSONForm  Enable JSON suit for every JSONField of a model:  from django.contrib.postgres.fields import JSONField\n\nclass JSONAdmin(admin.ModelAdmin):\n  formfield_overrides = {\n    JSONField: {'widget': JSONSuit }\n  }",
+            "text": "",
             "title": "Usage"
         },
         {
-            "location": "/#features",
-            "text": "TODO",
-            "title": "Features"
+            "location": "/#widget",
+            "text": "In a form or model admin, enable a JSON suit for a particular field:  from jsonsuit.widgets import JSONSuit\n\nclass JSONForm(forms.ModelForm):\n  class Meta:\n    model = Test\n    fields = '__all__'\n    widgets = {\n      'myjsonfield': JSONSuit,\n    }\n\nclass JSONAdmin(admin.ModelAdmin):\n  form = JSONForm  Enable JSON suit for every JSONField of a model:  from django.contrib.postgres.fields import JSONField\n\nclass JSONAdmin(admin.ModelAdmin):\n  formfield_overrides = {\n    JSONField: {'widget': JSONSuit}\n  }",
+            "title": "Widget"
+        },
+        {
+            "location": "/#theme",
+            "text": "Set JSON syntax highlighter theme in settings:  JSONSUIT_WIDGET_THEME = 'twilight'  Available themes: coy, dark, default, funky, okaidia, solarizedlight, twilight",
+            "title": "Theme"
+        },
+        {
+            "location": "/#custom-widget-media",
+            "text": "Set custom widget media (JS & CSS) files:  JSONSUIT_WIDGET_MEDIA_JS = (\n    'jsonsuit/js/mysyntaxhighlighter.js', 'jsonsuit/js/myscripts.js'\n)\n\nJSONSUIT_WIDGET_MEDIA_CSS = {\n    'all': ('jsonsuit/css/mytheme.css', 'jsonsuit/css/mystyles.css')\n}",
+            "title": "Custom Widget Media"
+        },
+        {
+            "location": "/#custom-html-template",
+            "text": "Override  jsonsuit/widget.html  template:  jsonsuit/templates\n\u2514\u2500\u2500 jsonsuit\n    \u2514\u2500\u2500 widget.html",
+            "title": "Custom HTML template"
         },
         {
             "location": "/#running-tests",
@@ -32,7 +52,7 @@
         },
         {
             "location": "/releases/",
-            "text": "Release Notes\n\n\nHistory\n\n\nVersion 0.1.0 (2017-05-13)\n\n\n\n\nFirst release on PyPI.",
+            "text": "Release Notes\n\n\nHistory\n\n\nVersion 0.2.0 (2017-05-14)\n\n\n\n\nChange JSON syntax highlighter themes\n\n\nSet custom widget media (JS & CSS) files\n\n\nUse custom HTML template\n\n\n\n\nVersion 0.1.0 (2017-05-13)\n\n\n\n\nFirst release on PyPI.",
             "title": "Release Notes"
         },
         {
@@ -44,6 +64,11 @@
             "location": "/releases/#history",
             "text": "",
             "title": "History"
+        },
+        {
+            "location": "/releases/#version-020-2017-05-14",
+            "text": "Change JSON syntax highlighter themes  Set custom widget media (JS & CSS) files  Use custom HTML template",
+            "title": "Version 0.2.0 (2017-05-14)"
         },
         {
             "location": "/releases/#version-010-2017-05-13",
