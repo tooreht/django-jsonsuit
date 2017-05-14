@@ -22,7 +22,7 @@ class TestJSONSuitWidget(TestCase):
         self.assertTrue(self.form.is_valid())
         html = self.form.as_table()
         self.assertIn('<div class="jsonsuit" data-jsonsuit="stats">', html)
-        self.assertIn('<button class="toggle button" data-raw="Raw" data-suit="Neat">Raw</button>', html)
+        self.assertIn('<button class="toggle button" data-raw="Raw" data-suit="Suit">Raw</button>', html)
         self.assertIn('<textarea ', html)
         self.assertIn('<div class="suit">\n    <pre><code class="language-json"></code></pre>\n  </div>', html)
 
