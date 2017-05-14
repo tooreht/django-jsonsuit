@@ -1,2 +1,2 @@
-django
+django>=1.8
 # Additional requirements go here
