@@ -10,6 +10,7 @@ def check_theme(name):
             'JSONSUIT_WIDGET_THEME must be one of {}'.format(
                 ', '.join(AVAILABLE_THEMES)))
 
+
 AVAILABLE_THEMES = getattr(settings, 'JSONSUIT_AVAILABLE_THEMES', ['coy',
                                                                    'dark',
                                                                    'default',
