@@ -7,7 +7,7 @@
                 textarea = document.getElementById('id_' + name),
                 prettyJSON = JSON.stringify(JSON.parse(textarea.value), null, 2),
                 prettyHTML = Prism.highlight(prettyJSON, Prism.languages.json),
-                suit = widgets[i].querySelector('div.suit'),
+                suit = widgets[i].querySelector('.suit'),
                 code = suit.querySelector('code'),
                 button = widgets[i].querySelector('button.toggle');
 
