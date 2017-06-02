@@ -4,9 +4,10 @@ Django goodies to dress JSON data in a suit.
 
 ## Features
 
+- Editable and readonly widget
 - Change JSON syntax highlighter themes
 - Set custom widget media (JS & CSS) files
-- Use custom HTML template
+- Use custom HTML templates
 
 ## Quickstart
 
@@ -26,7 +27,16 @@ INSTALLED_APPS = (
 
 ## Usage
 
-### Widget
+### Widgets
+
+django-jsonsuit currently provides two widgets to dress your JSON data:
+
+1. `JSONSuit`: Widget that displays JSON data with indentation and syntax highlighting as default, but allows to toggle between the standard django `Textarea` for editing.
+2. `ReadonlyJSONSuit`: Widget that simply displays JSON data with indentation and syntax highlighting. It is useful for JSON fields that contain readonly data.
+
+**Note**: Because a widget in django is only responsible for displaying fields, it has no direct access to its field properties. Thus there is no easy way to check if the field is readonly. The readonly behaviour is even handled differently among django forms, model forms and admin. This is why the `ReadonlyJSONSuit` was introduced.
+
+#### JSONSuit
 
 In a form or model admin, enable a JSON suit for a particular field:
 
@@ -38,7 +48,7 @@ class JSONForm(forms.ModelForm):
     model = Test
     fields = '__all__'
     widgets = {
-      'myjsonfield': JSONSuit,
+      'myjsonfield': JSONSuit(),
     }
 
 class JSONAdmin(admin.ModelAdmin):
@@ -52,7 +62,37 @@ from django.contrib.postgres.fields import JSONField
 
 class JSONAdmin(admin.ModelAdmin):
   formfield_overrides = {
-    JSONField: {'widget': JSONSuit}
+    JSONField: {'widget': JSONSuit }
+  }
+```
+
+#### ReadonlyJSONSuit
+
+In a form or model admin, enable a readonly JSON suit for a particular field:
+
+```python
+from jsonsuit.widgets import ReadonlyJSONSuit
+
+class ReadonlyJSONForm(forms.ModelForm):
+  class Meta:
+    model = Test
+    fields = '__all__'
+    widgets = {
+      'myjsonfield': ReadonlyJSONSuit(),
+    }
+
+class ReadonlyJSONAdmin(admin.ModelAdmin):
+  form = ReadonlyJSONForm
+```
+
+Enable readonly JSON suit for every JSONField of a model:
+
+```python
+from django.contrib.postgres.fields import JSONField
+
+class ReadonlyJSONAdmin(admin.ModelAdmin):
+  formfield_overrides = {
+    JSONField: {'widget': ReadonlyJSONSuit }
   }
 ```
 
@@ -64,7 +104,7 @@ Set JSON syntax highlighter theme in settings:
 JSONSUIT_WIDGET_THEME = 'twilight'
 ```
 
-Available themes: coy, dark, default, funky, okaidia, solarizedlight, twilight
+Available themes: `coy`, `dark`, `default`, `funky`, `okaidia`, `solarizedlight`, `twilight`. Defaults to the `default` theme.
 
 ### Custom Widget Media
 
@@ -78,16 +118,32 @@ JSONSUIT_WIDGET_MEDIA_JS = (
 JSONSUIT_WIDGET_MEDIA_CSS = {
     'all': ('jsonsuit/css/mytheme.css', 'jsonsuit/css/mystyles.css')
 }
+
+JSONSUIT_READONLY_WIDGET_MEDIA_JS = (
+    'jsonsuit/js/mysyntaxhighlighter.js', 'jsonsuit/js/myreadonlyscripts.js'
+)
+
+JSONSUIT_READONLY_WIDGET_MEDIA_CSS = {
+    'all': ('jsonsuit/css/mytheme.css', 'jsonsuit/css/myreadonlystyles.css')
+}
+```
+
+To only replace the syntax highlighter assets for all widgets, simply change:
+
+```python
+JSONSUIT_SYNTAX_HIGHLIGHTER_JS = ('jsonsuit/js/mysyntaxhighlighter.js',)
+JSONSUIT_SYNTAX_HIGHLIGHTER_CSS = ('jsonsuit/css/mytheme.css',)
 ```
 
 ### Custom HTML template
 
-Override `jsonsuit/widget.html` template:
+Override `jsonsuit/widget.html` or `jsonsuit/readonly_widget.html` template:
 
 ```bash
 jsonsuit/templates
 └── jsonsuit
     └── widget.html
+    └── readonly_widget.html
 ```
 
 ## Running Tests
