@@ -3,7 +3,15 @@
 language: python
 
 python:
-  - "3.5"
+  - "3.6"
+
+addons:
+  apt:
+    sources:
+      - deadsnakes
+    packages:
+      - python3.5
+      - python3.5-dev
 
 env:
   - TOX_ENV=py36-django-18
@@ -23,12 +31,20 @@ env:
   - TOX_ENV=py35-django-111
   - TOX_ENV=py34-django-111
   - TOX_ENV=py27-django-111
+  - TOX_ENV=py36-django-master
+  - TOX_ENV=py35-django-master
+  - TOX_ENV=py34-django-master
 
 matrix:
   fast_finish: true
+  allow_failures:
+    - env: TOX_ENV=py36-django-master
+    - env: TOX_ENV=py35-django-master
+    - env: TOX_ENV=py34-django-master
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
-install: pip install -r requirements_test.txt
+install:
+  - pip install -r requirements_test.txt
 
 # command to run tests using coverage, e.g. python setup.py test
 script: tox -e $TOX_ENV
