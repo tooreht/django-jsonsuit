@@ -113,9 +113,10 @@
 <p>Django goodies to dress JSON data in a suit.</p>
 <h2 id="features">Features</h2>
 <ul>
+<li>Editable and readonly widget</li>
 <li>Change JSON syntax highlighter themes</li>
 <li>Set custom widget media (JS &amp; CSS) files</li>
-<li>Use custom HTML template</li>
+<li>Use custom HTML templates</li>
 </ul>
 <h2 id="quickstart">Quickstart</h2>
 <p>Install django-jsonsuit:</p>
@@ -130,7 +131,14 @@
 </code></pre>
 
 <h2 id="usage">Usage</h2>
-<h3 id="widget">Widget</h3>
+<h3 id="widgets">Widgets</h3>
+<p>django-jsonsuit currently provides two widgets to dress your JSON data:</p>
+<ol>
+<li><code>JSONSuit</code>: Widget that displays JSON data with indentation and syntax highlighting as default, but allows to toggle between the standard django <code>Textarea</code> for editing.</li>
+<li><code>ReadonlyJSONSuit</code>: Widget that simply displays JSON data with indentation and syntax highlighting. It is useful for JSON fields that contain readonly data.</li>
+</ol>
+<p><strong>Note</strong>: Because a widget in django is only responsible for displaying fields, it has no direct access to its field properties. Thus there is no easy way to check if the field is readonly. The readonly behaviour is even handled differently among django forms, model forms and admin. This is why the <code>ReadonlyJSONSuit</code> was introduced.</p>
+<h4 id="jsonsuit">JSONSuit</h4>
 <p>In a form or model admin, enable a JSON suit for a particular field:</p>
 <pre><code class="python">from jsonsuit.widgets import JSONSuit
 
@@ -139,7 +147,7 @@ class JSONForm(forms.ModelForm):
     model = Test
     fields = '__all__'
     widgets = {
-      'myjsonfield': JSONSuit,
+      'myjsonfield': JSONSuit(),
     }
 
 class JSONAdmin(admin.ModelAdmin):
@@ -151,7 +159,32 @@ class JSONAdmin(admin.ModelAdmin):
 
 class JSONAdmin(admin.ModelAdmin):
   formfield_overrides = {
-    JSONField: {'widget': JSONSuit}
+    JSONField: {'widget': JSONSuit }
+  }
+</code></pre>
+
+<h4 id="readonlyjsonsuit">ReadonlyJSONSuit</h4>
+<p>In a form or model admin, enable a readonly JSON suit for a particular field:</p>
+<pre><code class="python">from jsonsuit.widgets import ReadonlyJSONSuit
+
+class ReadonlyJSONForm(forms.ModelForm):
+  class Meta:
+    model = Test
+    fields = '__all__'
+    widgets = {
+      'myjsonfield': ReadonlyJSONSuit(),
+    }
+
+class ReadonlyJSONAdmin(admin.ModelAdmin):
+  form = ReadonlyJSONForm
+</code></pre>
+
+<p>Enable readonly JSON suit for every JSONField of a model:</p>
+<pre><code class="python">from django.contrib.postgres.fields import JSONField
+
+class ReadonlyJSONAdmin(admin.ModelAdmin):
+  formfield_overrides = {
+    JSONField: {'widget': ReadonlyJSONSuit }
   }
 </code></pre>
 
@@ -160,7 +193,7 @@ class JSONAdmin(admin.ModelAdmin):
 <pre><code class="python">JSONSUIT_WIDGET_THEME = 'twilight'
 </code></pre>
 
-<p>Available themes: coy, dark, default, funky, okaidia, solarizedlight, twilight</p>
+<p>Available themes: <code>coy</code>, <code>dark</code>, <code>default</code>, <code>funky</code>, <code>okaidia</code>, <code>solarizedlight</code>, <code>twilight</code>. Defaults to the <code>default</code> theme.</p>
 <h3 id="custom-widget-media">Custom Widget Media</h3>
 <p>Set custom widget media (JS &amp; CSS) files:</p>
 <pre><code class="python">JSONSUIT_WIDGET_MEDIA_JS = (
@@ -170,13 +203,27 @@ class JSONAdmin(admin.ModelAdmin):
 JSONSUIT_WIDGET_MEDIA_CSS = {
     'all': ('jsonsuit/css/mytheme.css', 'jsonsuit/css/mystyles.css')
 }
+
+JSONSUIT_READONLY_WIDGET_MEDIA_JS = (
+    'jsonsuit/js/mysyntaxhighlighter.js', 'jsonsuit/js/myreadonlyscripts.js'
+)
+
+JSONSUIT_READONLY_WIDGET_MEDIA_CSS = {
+    'all': ('jsonsuit/css/mytheme.css', 'jsonsuit/css/myreadonlystyles.css')
+}
+</code></pre>
+
+<p>To only replace the syntax highlighter assets for all widgets, simply change:</p>
+<pre><code class="python">JSONSUIT_SYNTAX_HIGHLIGHTER_JS = ('jsonsuit/js/mysyntaxhighlighter.js',)
+JSONSUIT_SYNTAX_HIGHLIGHTER_CSS = ('jsonsuit/css/mytheme.css',)
 </code></pre>
 
 <h3 id="custom-html-template">Custom HTML template</h3>
-<p>Override <code>jsonsuit/widget.html</code> template:</p>
+<p>Override <code>jsonsuit/widget.html</code> or <code>jsonsuit/readonly_widget.html</code> template:</p>
 <pre><code class="bash">jsonsuit/templates
 └── jsonsuit
     └── widget.html
+    └── readonly_widget.html
 </code></pre>
 
 <h2 id="running-tests">Running Tests</h2>
@@ -223,5 +270,5 @@ JSONSUIT_WIDGET_MEDIA_CSS = {
 
 <!--
 MkDocs version : 0.16.3
-Build Date UTC : 2017-05-14 20:31:26
+Build Date UTC : 2017-06-02 10:41:08
 -->
