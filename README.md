@@ -102,6 +102,44 @@ class ReadonlyJSONAdmin(admin.ModelAdmin):
   }
 ```
 
+### Template Tags
+
+Use the jsonsuit template tag to display serializable objects in templates. Note that in order to use the `jsonsuit`, `jsonsuit_css` and `jsonsuit_js` tags, they must be loaded using `{% load jsonsuit %}`. 
+
+```html
+{% extends "ui/base.html" %}
+{% load jsonsuit %}
+
+{% block title %}{% trans "JSONSuit Template Tag" %}{% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+    {% jsonsuit_css %} <!-- include jsonsuit css files -->
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-4">
+      <h2>Unnamed Suit</h2>
+      {% jsonsuit data %} <!-- with no parameter supplied,
+                               a uuid css class name is generated
+                               to identify each individual suit -->
+  </div>
+  <div class="col-md-8">
+      <h2>Named Suit</h2>
+      {% jsonsuit data 'suit_name' %} <!-- for each suit,
+                                           a css class name
+                                           can be supplied -->
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    {% jsonsuit_js %} <!-- include jsonsuit js files -->
+{% endblock %}
+```
+
 ### Theme
 
 Set JSON syntax highlighter theme in settings:
