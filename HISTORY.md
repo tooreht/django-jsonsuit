@@ -1,5 +1,8 @@
 ## History
 
+### Version 0.4.0 (2017-06-18)
+- Add jsonsuit template tags
+
 ### Version 0.3.0 (2017-06-02)
 - Add ReadonlyJSONSuit widget
 - Make app settings more modular
