@@ -11,7 +11,7 @@ except ImportError:
 
 
 # Managed by bumpversion
-version = '0.3.0'
+version = '0.4.0'
 
 def convert_md_to_rst(filename):
     try:
