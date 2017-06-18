@@ -188,6 +188,41 @@ class ReadonlyJSONAdmin(admin.ModelAdmin):
   }
 </code></pre>
 
+<h3 id="template-tags">Template Tags</h3>
+<p>Use the jsonsuit template tag to display serializable objects in templates. Note that in order to use the <code>jsonsuit</code>, <code>jsonsuit_css</code> and <code>jsonsuit_js</code> tags, they must be loaded using <code>{% load jsonsuit %}</code>. </p>
+<pre><code class="html">{% extends &quot;ui/base.html&quot; %}
+{% load jsonsuit %}
+
+{% block title %}{% trans &quot;JSONSuit Template Tag&quot; %}{% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+    {% jsonsuit_css %} &lt;!-- include jsonsuit css files --&gt;
+{% endblock %}
+
+{% block content %}
+&lt;div class=&quot;row&quot;&gt;
+  &lt;div class=&quot;col-md-4&quot;&gt;
+      &lt;h2&gt;Unnamed Suit&lt;/h2&gt;
+      {% jsonsuit data %} &lt;!-- with no parameter supplied,
+                               a uuid css class name is generated
+                               to identify each individual suit --&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;col-md-8&quot;&gt;
+      &lt;h2&gt;Named Suit&lt;/h2&gt;
+      {% jsonsuit data 'suit_name' %} &lt;!-- for each suit,
+                                           a css class name
+                                           can be supplied --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    {% jsonsuit_js %} &lt;!-- include jsonsuit js files --&gt;
+{% endblock %}
+</code></pre>
+
 <h3 id="theme">Theme</h3>
 <p>Set JSON syntax highlighter theme in settings:</p>
 <pre><code class="python">JSONSUIT_WIDGET_THEME = 'twilight'
@@ -270,5 +305,5 @@ JSONSUIT_SYNTAX_HIGHLIGHTER_CSS = ('jsonsuit/css/mytheme.css',)
 
 <!--
 MkDocs version : 0.16.3
-Build Date UTC : 2017-06-02 10:41:08
+Build Date UTC : 2017-06-18 20:42:56
 -->
