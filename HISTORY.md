@@ -1,5 +1,9 @@
 ## History
 
+### Version 0.4.1 (2017-06-19)
+- Simplify tests to work with multiple python versions
+- Fix docs about template tags
+
 ### Version 0.4.0 (2017-06-18)
 - Add jsonsuit template tags
 
@@ -15,4 +19,4 @@
 - Use custom HTML template
 
 ### Version 0.1.0 (2017-05-13)
--   First release on PyPI.
+- First release on PyPI.
