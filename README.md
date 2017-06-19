@@ -114,7 +114,7 @@ Use the jsonsuit template tag to display serializable objects in templates. Note
 
 {% block styles %}
     {{ block.super }}
-    {% jsonsuit_css %} <!-- include jsonsuit css files -->
+    {% jsonsuit_css %} <!-- include jsonsuit CSS files -->
 {% endblock %}
 
 {% block content %}
@@ -122,21 +122,25 @@ Use the jsonsuit template tag to display serializable objects in templates. Note
   <div class="col-md-4">
       <h2>Unnamed Suit</h2>
       {% jsonsuit data %} <!-- with no parameter supplied,
-                               a uuid css class name is generated
-                               to identify each individual suit -->
+                               a uuid is generated as
+                               HTML attribute value to
+                               identify each individual suit:
+                               data-jsonsuit="<uuid>" -->
   </div>
   <div class="col-md-8">
       <h2>Named Suit</h2>
       {% jsonsuit data 'suit_name' %} <!-- for each suit,
-                                           a css class name
-                                           can be supplied -->
+                                           an optional string
+                                           can be supplied, which
+                                           serves as HTML attribute
+                                           value: data-jsonsuit="<suit_name>" -->
   </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
     {{ block.super }}
-    {% jsonsuit_js %} <!-- include jsonsuit js files -->
+    {% jsonsuit_js %} <!-- include jsonsuit JS files -->
 {% endblock %}
 ```
 
