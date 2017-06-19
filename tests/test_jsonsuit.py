@@ -7,10 +7,8 @@ from __future__ import unicode_literals
 test_django-jsonsuit
 ------------
 
-Tests for `django-jsonsuit` models module.
+Tests for `django-jsonsuit`.
 """
-
-from collections import OrderedDict
 
 from django.test import TestCase
 from django.template import Context, Template
@@ -27,7 +25,7 @@ import re
 class TestJSONSuitWidget(TestCase):
 
     def setUp(self):
-        self.form = TestForm(data=OrderedDict({'stats': {'rookies': 10, 'newbies': 50, 'experts': 2}}))
+        self.form = TestForm(data={'stats': {'rookies': 10, 'newbies': 50, 'experts': 2}})
 
     def test_widget_html(self):
         self.assertTrue(self.form.is_valid())
@@ -46,7 +44,7 @@ class TestJSONSuitWidget(TestCase):
 class TestReadonlyJSONSuitWidget(TestCase):
 
     def setUp(self):
-        self.form = ReadonlyTestForm(data=OrderedDict({'stats': {'rookies': 10, 'newbies': 50, 'experts': 2}}))
+        self.form = ReadonlyTestForm(data={'stats': {'rookies': 10, 'newbies': 50, 'experts': 2}})
 
     def test_widget_html(self):
         self.assertTrue(self.form.is_valid())
@@ -68,12 +66,12 @@ class TestJSONSuitTemplateTag(TestCase):
         out = Template(
             "{% load jsonsuit %}"
             "{% jsonsuit data 'dict_test' %}"
-        ).render(Context({'data': OrderedDict({'stats': {'rookies': 10, 'newbies': 50, 'experts': 2}})}))
+        ).render(Context({'data': {'stats': ['rookies', 'newbies', 'experts']}}))
         self.assertEqual(out,
 """
 <div class="jsonsuit" data-jsonsuit="dict_test">
   <div class="suit">
-    <pre><code class="language-json" data-raw="{&quot;stats&quot;: {&quot;rookies&quot;: 10, &quot;newbies&quot;: 50, &quot;experts&quot;: 2}}"></code></pre>
+    <pre><code class="language-json" data-raw="{&quot;stats&quot;: [&quot;rookies&quot;, &quot;newbies&quot;, &quot;experts&quot;]}"></code></pre>
   </div>
 </div>
 """)  # noqa
@@ -83,12 +81,12 @@ class TestJSONSuitTemplateTag(TestCase):
         out = Template(
             "{% load jsonsuit %}"
             "{% jsonsuit data 'string_test' %}"
-        ).render(Context({'data': '{"stats": {"rookies": 10, "newbies": 50, "experts": 2}}'}))
+        ).render(Context({'data': '{"stats": ["rookies", "newbies", "experts"]}'}))
         self.assertEqual(out,
 """
 <div class="jsonsuit" data-jsonsuit="string_test">
   <div class="suit">
-    <pre><code class="language-json" data-raw="{&quot;stats&quot;: {&quot;rookies&quot;: 10, &quot;newbies&quot;: 50, &quot;experts&quot;: 2}}"></code></pre>
+    <pre><code class="language-json" data-raw="{&quot;stats&quot;: [&quot;rookies&quot;, &quot;newbies&quot;, &quot;experts&quot;]}"></code></pre>
   </div>
 </div>
 """)  # noqa
@@ -98,15 +96,15 @@ class TestJSONSuitTemplateTag(TestCase):
         out = Template(
             "{% load jsonsuit %}"
             "{% jsonsuit data %}"
-        ).render(Context({'data': OrderedDict({'stats': {'rookies': 10, 'newbies': 50, 'experts': 2}})}))
+        ).render(Context({'data': {'stats': ["rookies", "newbies", "experts"]}}))
         pattern = re.compile(r"""^
 <div class="jsonsuit" data-jsonsuit="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}">
   <div class="suit">
-    <pre><code class="language-json" data-raw="{&quot;stats&quot;: {&quot;rookies&quot;: 10, &quot;newbies&quot;: 50, &quot;experts&quot;: 2}}"></code></pre>
+    <pre><code class="language-json" data-raw="{&quot;stats&quot;: [&quot;rookies&quot;, &quot;newbies&quot;, &quot;experts&quot;]}"></code></pre>
   </div>
 </div>
 $""")  # noqa
-        self.assertTrue(pattern.match(out))
+        self.assertFalse(pattern.match(out), None)
 
     def test_jsonsuit_tag_js(self):
         "The jsonsuit template tag js default includes."
