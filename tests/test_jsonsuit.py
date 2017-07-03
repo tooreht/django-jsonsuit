@@ -97,14 +97,8 @@ class TestJSONSuitTemplateTag(TestCase):
             "{% load jsonsuit %}"
             "{% jsonsuit data %}"
         ).render(Context({'data': {'stats': ["rookies", "newbies", "experts"]}}))
-        pattern = re.compile(r"""^
-<div class="jsonsuit" data-jsonsuit="[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}">
-  <div class="suit">
-    <pre><code class="language-json" data-raw="{&quot;stats&quot;: [&quot;rookies&quot;, &quot;newbies&quot;, &quot;experts&quot;]}"></code></pre>
-  </div>
-</div>
-$""")  # noqa
-        self.assertFalse(pattern.match(out), None)
+        pattern = re.compile(r'data-jsonsuit="[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}')  # noqa
+        self.assertTrue(pattern.search(out))
 
     def test_jsonsuit_tag_js(self):
         "The jsonsuit template tag js default includes."
