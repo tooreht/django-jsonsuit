@@ -91,6 +91,21 @@ class TestJSONSuitTemplateTag(TestCase):
 </div>
 """)  # noqa
 
+    def test_jsonsuit_tag_empty_string(self):
+        "The jsonsuit template tag retrieves an empty string to render as JSON with the name 'empty_string_test'."
+        out = Template(
+            "{% load jsonsuit %}"
+            "{% jsonsuit data 'empty_string_test' %}"
+        ).render(Context({'data': '""'}))
+        self.assertEqual(out,
+"""
+<div class="jsonsuit" data-jsonsuit="empty_string_test">
+  <div class="suit">
+    <pre><code class="language-json" data-raw="&quot;&quot;"></code></pre>
+  </div>
+</div>
+""")  # noqa
+
     def test_jsonsuit_tag_uuid(self):
         "The jsonsuit template tag retrieves a dict to render as JSON without a name and should therefore use a uuid."
         out = Template(

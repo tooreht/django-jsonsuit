@@ -31,7 +31,7 @@ def jsonsuit_js():
 def jsonsuit(obj, name=None):
     if name is None:
         name = uuid.uuid4()
-    if isinstance(obj, six.string_types):
+    if isinstance(obj, six.string_types) and obj:
         obj = json.loads(obj)
     widget = ReadonlyJSONSuit()
     return mark_safe(widget.render(
