@@ -1,5 +1,9 @@
 ## History
 
+### Version 0.4.2 (2017-07-03)
+- Fix test for jsonsuit template tag
+- Fix jsonsuit template tag for empty strings and add test case
+
 ### Version 0.4.1 (2017-06-19)
 - Simplify tests to work with multiple python versions
 - Fix docs about template tags
