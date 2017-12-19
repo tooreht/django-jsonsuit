@@ -1,6 +1,6 @@
 {% load i18n %}
 <div class="jsonsuit" data-jsonsuit="{{ name }}">
-  <button class="toggle button" data-raw="{% trans 'Raw' %}" data-suit="{% trans 'Suit' %}">{% trans 'Raw' %}</button>
+  <button type="button" class="toggle button" data-raw="{% trans 'Raw' %}" data-suit="{% trans 'Suit' %}">{% trans 'Raw' %}</button>
   {{ textarea }}
   <div class="suit">
     <pre><code class="language-json" data-raw="{{ value }}"></code></pre>
