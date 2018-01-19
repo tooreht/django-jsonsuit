@@ -67,7 +67,7 @@
         },
         {
             "location": "/releases/",
-            "text": "Release Notes\n\n\nHistory\n\n\nVersion 0.4.3 (2018-01-19)\n\n\n\n\nFix toggling of JSON field instead of submitting\n\n\nFix test for jsonsuit template tag\n\n\nUpdate test requirements\n\n\nAdd renderer kwarg to the widget render fn\n\n\nSkip tox test if interpreter is missing\n\n\n\n\nVersion 0.4.2 (2017-07-03)\n\n\n\n\nFix test for jsonsuit template tag\n\n\nFix jsonsuit template tag for empty strings and add test case\n\n\n\n\nVersion 0.4.1 (2017-06-19)\n\n\n\n\nSimplify tests to work with multiple python versions\n\n\nFix docs about template tags\n\n\n\n\nVersion 0.4.0 (2017-06-18)\n\n\n\n\nAdd jsonsuit template tags\n\n\n\n\nVersion 0.3.0 (2017-06-02)\n\n\n\n\nAdd ReadonlyJSONSuit widget\n\n\nMake app settings more modular\n\n\nMake JS code more generic (mostly using classes in selectors)\n\n\nUse Prism's \"default\" theme as default\n\n\n\n\nVersion 0.2.0 (2017-05-14)\n\n\n\n\nChange JSON syntax highlighter themes\n\n\nSet custom widget media (JS & CSS) files\n\n\nUse custom HTML template\n\n\n\n\nVersion 0.1.0 (2017-05-13)\n\n\n\n\nFirst release on PyPI.",
+            "text": "Release Notes\n\n\nHistory\n\n\nVersion 0.4.3 (2018-01-19)\n\n\n\n\nFix toggling of JSON field instead of submitting\n\n\nFix test for jsonsuit template tag\n\n\nUpdate test requirements\n\n\nAdd renderer kwarg to the widget render fn\n\n\nFix tox and travis config\n\n\n\n\nVersion 0.4.2 (2017-07-03)\n\n\n\n\nFix test for jsonsuit template tag\n\n\nFix jsonsuit template tag for empty strings and add test case\n\n\n\n\nVersion 0.4.1 (2017-06-19)\n\n\n\n\nSimplify tests to work with multiple python versions\n\n\nFix docs about template tags\n\n\n\n\nVersion 0.4.0 (2017-06-18)\n\n\n\n\nAdd jsonsuit template tags\n\n\n\n\nVersion 0.3.0 (2017-06-02)\n\n\n\n\nAdd ReadonlyJSONSuit widget\n\n\nMake app settings more modular\n\n\nMake JS code more generic (mostly using classes in selectors)\n\n\nUse Prism's \"default\" theme as default\n\n\n\n\nVersion 0.2.0 (2017-05-14)\n\n\n\n\nChange JSON syntax highlighter themes\n\n\nSet custom widget media (JS & CSS) files\n\n\nUse custom HTML template\n\n\n\n\nVersion 0.1.0 (2017-05-13)\n\n\n\n\nFirst release on PyPI.",
             "title": "Release Notes"
         },
         {
@@ -82,7 +82,7 @@
         },
         {
             "location": "/releases/#version-043-2018-01-19",
-            "text": "Fix toggling of JSON field instead of submitting  Fix test for jsonsuit template tag  Update test requirements  Add renderer kwarg to the widget render fn  Skip tox test if interpreter is missing",
+            "text": "Fix toggling of JSON field instead of submitting  Fix test for jsonsuit template tag  Update test requirements  Add renderer kwarg to the widget render fn  Fix tox and travis config",
             "title": "Version 0.4.3 (2018-01-19)"
         },
         {
