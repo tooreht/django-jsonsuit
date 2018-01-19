@@ -33,7 +33,7 @@ class TestJSONSuitWidget(TestCase):
         self.assertTrue(self.form.fields.get('stats').widget.media['css'], list(WIDGET_MEDIA_CSS))
         html = self.form.as_table()
         self.assertIn('<div class="jsonsuit" data-jsonsuit="stats">', html)
-        self.assertIn('<button class="toggle button" data-raw="Raw" data-suit="Suit">Raw</button>', html)
+        self.assertIn('<button type="button" class="toggle button" data-raw="Raw" data-suit="Suit">Raw</button>', html)
         self.assertIn('<textarea ', html)
         self.assertIn('<div class="suit">\n    <pre><code class="language-json" data-raw="', html)
 
@@ -52,7 +52,7 @@ class TestReadonlyJSONSuitWidget(TestCase):
         self.assertTrue(self.form.fields.get('stats').widget.media['css'], list(READONLY_WIDGET_MEDIA_CSS))
         html = self.form.as_table()
         self.assertIn('<div class="jsonsuit" data-jsonsuit="stats">', html)
-        self.assertNotIn('<button class="toggle button" data-raw="Raw" data-suit="Suit">Raw</button>', html)
+        self.assertNotIn('<button type="button" class="toggle button" data-raw="Raw" data-suit="Suit">Raw</button>', html)
         self.assertNotIn('<textarea ', html)
         self.assertIn('<div class="suit">\n    <pre><code class="language-json" data-raw="', html)
 
