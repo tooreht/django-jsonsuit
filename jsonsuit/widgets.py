@@ -8,7 +8,7 @@ from .app_settings import (
 
 
 class JSONSuit(widgets.Textarea):
-    def render(self, name, value, attrs={}):
+    def render(self, name, value, attrs={}, renderer=None):
         attrs.update({'class': 'hidden'})
         textarea = super(JSONSuit, self).render(name, value, attrs)
         return render_to_string('jsonsuit/widget.html', {
@@ -21,7 +21,7 @@ class JSONSuit(widgets.Textarea):
 
 
 class ReadonlyJSONSuit(widgets.Widget):
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         return render_to_string('jsonsuit/readonly_widget.html', {
             'name': name, 'value': value, 'attrs': attrs})
 
