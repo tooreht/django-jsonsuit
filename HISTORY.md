@@ -1,5 +1,12 @@
 ## History
 
+### Version 0.4.3 (2018-01-19)
+- Fix toggling of JSON field instead of submitting
+- Fix test for jsonsuit template tag
+- Update test requirements
+- Add renderer kwarg to the widget render fn
+- Fix tox and travis config
+
 ### Version 0.4.2 (2017-07-03)
 - Fix test for jsonsuit template tag
 - Fix jsonsuit template tag for empty strings and add test case
