@@ -68,8 +68,7 @@ class TestJSONSuitTemplateTag(TestCase):
             "{% jsonsuit data 'dict_test' %}"
         ).render(Context({'data': {'stats': ['rookies', 'newbies', 'experts']}}))
         self.assertEqual(out,
-"""
-<div class="jsonsuit" data-jsonsuit="dict_test">
+"""<div class="jsonsuit" data-jsonsuit="dict_test">
   <div class="suit">
     <pre><code class="language-json" data-raw="{&quot;stats&quot;: [&quot;rookies&quot;, &quot;newbies&quot;, &quot;experts&quot;]}"></code></pre>
   </div>
@@ -83,8 +82,7 @@ class TestJSONSuitTemplateTag(TestCase):
             "{% jsonsuit data 'string_test' %}"
         ).render(Context({'data': '{"stats": ["rookies", "newbies", "experts"]}'}))
         self.assertEqual(out,
-"""
-<div class="jsonsuit" data-jsonsuit="string_test">
+"""<div class="jsonsuit" data-jsonsuit="string_test">
   <div class="suit">
     <pre><code class="language-json" data-raw="{&quot;stats&quot;: [&quot;rookies&quot;, &quot;newbies&quot;, &quot;experts&quot;]}"></code></pre>
   </div>
@@ -98,8 +96,7 @@ class TestJSONSuitTemplateTag(TestCase):
             "{% jsonsuit data 'empty_string_test' %}"
         ).render(Context({'data': '""'}))
         self.assertEqual(out,
-"""
-<div class="jsonsuit" data-jsonsuit="empty_string_test">
+"""<div class="jsonsuit" data-jsonsuit="empty_string_test">
   <div class="suit">
     <pre><code class="language-json" data-raw="&quot;&quot;"></code></pre>
   </div>
