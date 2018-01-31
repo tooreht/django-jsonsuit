@@ -1,5 +1,10 @@
 ## History
 
+### Version 0.4.4 (2018-01-31)
+- Update django doc links
+- Remove unused load of i18n template tag
+- Update prism assets
+
 ### Version 0.4.3 (2018-01-19)
 - Fix toggling of JSON field instead of submitting
 - Fix test for jsonsuit template tag
