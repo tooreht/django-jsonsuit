@@ -15,8 +15,9 @@ class JSONSuit(widgets.Textarea):
             'name': name, 'value': value, 'textarea': textarea})
 
     class Media:
+        # https://docs.djangoproject.com/en/dev/topics/forms/media/#js
         js = WIDGET_MEDIA_JS
-        # https://docs.djangoproject.com/en/1.9/topics/forms/media/#css
+        # https://docs.djangoproject.com/en/dev/topics/forms/media/#css
         css = WIDGET_MEDIA_CSS
 
 
@@ -26,6 +27,7 @@ class ReadonlyJSONSuit(widgets.Widget):
             'name': name, 'value': value, 'attrs': attrs})
 
     class Media:
+        # https://docs.djangoproject.com/en/dev/topics/forms/media/#js
         js = READONLY_WIDGET_MEDIA_JS
-        # https://docs.djangoproject.com/en/1.9/topics/forms/media/#css
+        # https://docs.djangoproject.com/en/dev/topics/forms/media/#css
         css = READONLY_WIDGET_MEDIA_CSS
