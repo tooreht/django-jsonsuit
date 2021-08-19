@@ -202,6 +202,11 @@ Does the code actually work?
     (myenv) $ pip install tox
     (myenv) $ tox
 
+## Development commands
+
+    pip install -r requirements_dev.txt
+    invoke -l
+
 ## Credits
 
 Project dependencies:

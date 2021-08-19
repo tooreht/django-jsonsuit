@@ -19,6 +19,7 @@ from jsonsuit.app_settings import (
 )
 from tests.forms import TestForm, ReadonlyTestForm
 
+import django
 import re
 
 
@@ -52,7 +53,7 @@ class TestReadonlyJSONSuitWidget(TestCase):
         self.assertTrue(self.form.fields.get('stats').widget.media['css'], list(READONLY_WIDGET_MEDIA_CSS))
         html = self.form.as_table()
         self.assertIn('<div class="jsonsuit" data-jsonsuit="stats">', html)
-        self.assertNotIn('<button type="button" class="toggle button" data-raw="Raw" data-suit="Suit">Raw</button>', html)
+        self.assertNotIn('<button type="button" class="toggle button" data-raw="Raw" data-suit="Suit">Raw</button>', html)  # noqa
         self.assertNotIn('<textarea ', html)
         self.assertIn('<div class="suit">\n    <pre><code class="language-json" data-raw="', html)
 
@@ -118,8 +119,12 @@ class TestJSONSuitTemplateTag(TestCase):
             "{% load jsonsuit %}"
             "{% jsonsuit_js %}"
         ).render(Context())
-        self.assertEqual(out, '<script type="text/javascript" src="jsonsuit/js/prism.js"></script>\n'
-                              '<script type="text/javascript" src="jsonsuit/js/readonly-jsonsuit.js"></script>')
+        if django.get_version().startswith('1.11') or django.get_version().startswith('2.2'):
+            self.assertEqual(out, '<script type="text/javascript" src="/static/jsonsuit/js/prism.js"></script>\n'
+                                  '<script type="text/javascript" src="/static/jsonsuit/js/readonly-jsonsuit.js"></script>')  # noqa
+        else:
+            self.assertEqual(out, '<script src="/static/jsonsuit/js/prism.js"></script>\n'
+                                  '<script src="/static/jsonsuit/js/readonly-jsonsuit.js"></script>')
 
     def test_jsonsuit_tag_css(self):
         "The jsonsuit template tag css default includes."
@@ -127,5 +132,9 @@ class TestJSONSuitTemplateTag(TestCase):
             "{% load jsonsuit %}"
             "{% jsonsuit_css %}"
         ).render(Context())
-        self.assertEqual(out, '<link href="jsonsuit/css/prism-default.css" type="text/css" media="all" rel="stylesheet" />\n'  # noqa
-                              '<link href="jsonsuit/css/jsonsuit.css" type="text/css" media="all" rel="stylesheet" />')
+        if django.get_version().startswith('1.11'):
+            self.assertEqual(out, '<link href="/static/jsonsuit/css/prism-default.css" type="text/css" media="all" rel="stylesheet" />\n'  # noqa
+                                  '<link href="/static/jsonsuit/css/jsonsuit.css" type="text/css" media="all" rel="stylesheet" />')  # noqa
+        else:
+            self.assertEqual(out, '<link href="/static/jsonsuit/css/prism-default.css" type="text/css" media="all" rel="stylesheet">\n'  # noqa
+                                  '<link href="/static/jsonsuit/css/jsonsuit.css" type="text/css" media="all" rel="stylesheet">')  # noqa
