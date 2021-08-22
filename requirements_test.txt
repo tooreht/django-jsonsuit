@@ -4,5 +4,4 @@ flake8>=3.3.0
 tox>=1.7.0
 codecov>=2.0.9
 
-
 # Additional test requirements go here

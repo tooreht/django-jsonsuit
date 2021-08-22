@@ -1,5 +1,6 @@
-bumpversion==0.5.3
-wheel==0.29.0
+invoke
+wheel
+zest.releaser[recommended]
 mkdocs
 markdown-include
 pypandoc

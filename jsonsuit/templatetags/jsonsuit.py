@@ -3,7 +3,6 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 import json
-import six
 import uuid
 
 from django.template import Library
@@ -31,7 +30,7 @@ def jsonsuit_js():
 def jsonsuit(obj, name=None):
     if name is None:
         name = uuid.uuid4()
-    if isinstance(obj, six.string_types) and obj:
+    if isinstance(obj, str) and obj:
         obj = json.loads(obj)
     widget = ReadonlyJSONSuit()
     return mark_safe(widget.render(
