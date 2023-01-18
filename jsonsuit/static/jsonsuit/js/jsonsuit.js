@@ -1,9 +1,8 @@
 ;(function(window, document) {
     function setup() {
-        var widgets = document.querySelectorAll('*[class="jsonsuit"][data-jsonsuit]');
-
-        for (var i = 0; i < widgets.length; i++) {
-            var name = widgets[i].dataset.jsonsuit,
+        const widgets = document.querySelectorAll('*[class="jsonsuit editable"][data-jsonsuit]');
+        for (let i = 0; i < widgets.length; i++) {
+            const name = widgets[i].dataset.jsonsuit,
                 textarea = document.getElementById('id_' + name),
                 prettyJSON = JSON.stringify(JSON.parse(textarea.value), null, 2),
                 prettyHTML = Prism.highlight(prettyJSON, Prism.languages.json),
