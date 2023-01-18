@@ -38,6 +38,5 @@
         e.target.suit.classList.toggle('hidden');
     }
 
-    function DOMReady(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
-    DOMReady(setup);
+    document.addEventListener('DOMContentLoaded', _e => setup());
 }(window, document));
