@@ -14,6 +14,7 @@
             code.innerHTML = prettyHTML;
             button.textarea = textarea;
             button.suit = suit;
+            button.code = code;
             button.addEventListener("click", toggle, false);
         }
     }
@@ -22,6 +23,14 @@
         e.preventDefault();
         if (e.target.suit.classList.contains('hidden')) {
             e.target.innerHTML = e.target.dataset.raw;
+            try {
+                const prettyJSON = JSON.stringify(JSON.parse(e.target.textarea.value), null, 2);
+                const prettyHTML = Prism.highlight(prettyJSON, Prism.languages.json);
+                e.target.textarea.value = prettyJSON;
+                e.target.code.innerHTML = prettyHTML;
+            } catch (error) {
+                console.error(error);
+            }
         } else {
             e.target.innerHTML = e.target.dataset.suit;
         }
