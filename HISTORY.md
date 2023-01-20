@@ -1,5 +1,14 @@
 ## History
 
+### Version 0.5.0 (2023-01-20)
+- Modernize tooling
+- Support python 3.9, 3.10, 3.11
+- Support django 3.2, 4.1
+- Update PrismJS to version 1.29.0
+- Simplify DOM ready for modern browsers
+- Update jsonsuit on toggle
+- Support for multiple mixed forms
+
 ### Version 0.4.4 (2018-01-31)
 - Update django doc links
 - Remove unused load of i18n template tag
