@@ -1,6 +1,6 @@
 site_name: django-jsonsuit
 repo_url: https://github.com/tooreht/django-jsonsuit
-pages:
+nav:
     - Home: index.md
     - About:
       - Release Notes: releases.md
