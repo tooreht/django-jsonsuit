@@ -48,3 +48,6 @@ site/
 
 # virtual environments
 venv/
+
+# pyenv
+.python-version
