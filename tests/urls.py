@@ -1,8 +1,10 @@
-# -*- coding: utf-8
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
-from django.conf.urls import url, include
+from django.urls import include, path
+from django.contrib import admin
 
 urlpatterns = [
-    url(r'^', include('jsonsuit.urls', namespace='jsonsuit')),
+    path('admin/', admin.site.urls),
+    path('', include('jsonsuit.urls', namespace='jsonsuit')),
 ]

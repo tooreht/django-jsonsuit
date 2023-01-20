@@ -1,9 +1,8 @@
 ;(function(window, document) {
     function setup() {
-        var widgets = document.querySelectorAll('*[class="jsonsuit"][data-jsonsuit]');
-
-        for (var i = 0; i < widgets.length; i++) {
-            var name = widgets[i].dataset.jsonsuit,
+        const widgets = document.querySelectorAll('*[class="jsonsuit editable"][data-jsonsuit]');
+        for (let i = 0; i < widgets.length; i++) {
+            const name = widgets[i].dataset.jsonsuit,
                 textarea = document.getElementById('id_' + name),
                 prettyJSON = JSON.stringify(JSON.parse(textarea.value), null, 2),
                 prettyHTML = Prism.highlight(prettyJSON, Prism.languages.json),
@@ -15,6 +14,7 @@
             code.innerHTML = prettyHTML;
             button.textarea = textarea;
             button.suit = suit;
+            button.code = code;
             button.addEventListener("click", toggle, false);
         }
     }
@@ -23,6 +23,14 @@
         e.preventDefault();
         if (e.target.suit.classList.contains('hidden')) {
             e.target.innerHTML = e.target.dataset.raw;
+            try {
+                const prettyJSON = JSON.stringify(JSON.parse(e.target.textarea.value), null, 2);
+                const prettyHTML = Prism.highlight(prettyJSON, Prism.languages.json);
+                e.target.textarea.value = prettyJSON;
+                e.target.code.innerHTML = prettyHTML;
+            } catch (error) {
+                console.error(error);
+            }
         } else {
             e.target.innerHTML = e.target.dataset.suit;
         }
@@ -30,6 +38,5 @@
         e.target.suit.classList.toggle('hidden');
     }
 
-    function DOMReady(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
-    DOMReady(setup);
+    document.addEventListener('DOMContentLoaded', _e => setup());
 }(window, document));

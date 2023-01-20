@@ -10,13 +10,24 @@ except ImportError:
     from distutils.core import setup
 
 
-# Managed by bumpversion
-version = '0.4.4'
+def get_version(*file_paths):
+    """Retrieves the version from jsonsuit/__init__.py"""
+    filename = os.path.join(os.path.dirname(__file__), *file_paths)
+    version_file = open(filename).read()
+    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
+                              version_file, re.M)
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError('Unable to find version string.')
+
+
+version = get_version("jsonsuit", "__init__.py")
+
 
 def convert_md_to_rst(filename):
     try:
        import pypandoc
-       rst = pypandoc.convert('{}.md'.format(filename), 'rst')
+       rst = pypandoc.convert_file('{}.md'.format(filename), 'rst')
     except (IOError, ImportError):
        rst = ''
     return rst
@@ -41,6 +52,7 @@ if sys.argv[-1] == 'tag':
 
 readme = convert_md_to_rst('README')
 history = convert_md_to_rst('HISTORY')
+requirements = open('requirements.txt').readlines()
 
 setup(
     name='django-jsonsuit',
@@ -54,28 +66,21 @@ setup(
         'jsonsuit',
     ],
     include_package_data=True,
-    install_requires=[
-        'django>=1.8',
-    ],
+    install_requires=requirements,
     license="MIT",
     zip_safe=False,
-    keywords='django-jsonsuit',
+    keywords=['django-jsonsuit', 'django', 'json', 'suit'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Framework :: Django',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
-        'Framework :: Django :: 1.10',
-        'Framework :: Django :: 1.11',
+        'Framework :: Django :: 3.2'
+        'Framework :: Django :: 4.1',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
     ],
 )

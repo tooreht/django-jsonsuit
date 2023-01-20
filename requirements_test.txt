@@ -1,8 +1,7 @@
-coverage==4.4.1
-mock>=1.0.1
-flake8>=3.3.0
-tox>=1.7.0
-codecov>=2.0.9
-
+coverage
+mock
+flake8
+tox
+codecov
 
 # Additional test requirements go here
