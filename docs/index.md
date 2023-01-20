@@ -2,6 +2,11 @@
 
 Django goodies to dress JSON data in a suit.
 
+## Documentation
+
+The full documentation is at <https://tooreht.github.io/django-jsonsuit>.  
+An example project can be found at <https://github.com/tooreht/django-jsonsuit-example>.
+
 ## Features
 
 - Editable and readonly widget
@@ -36,6 +41,8 @@ django-jsonsuit currently provides two widgets to dress your JSON data:
 
 **Note**: Because a widget in django is only responsible for displaying fields, it has no direct access to its field properties. Thus there is no easy way to check if the field is readonly. The readonly behaviour is even handled differently among django forms, model forms and admin. This is why the `ReadonlyJSONSuit` was introduced.
 
+**Note**: When using multiple form instances or multiple forms with equal field names on the same page use [Formsets](https://docs.djangoproject.com/en/dev/topics/forms/formsets/) or [prefixes](https://docs.djangoproject.com/en/dev/ref/forms/api/#prefixes-for-forms) to avoid HTML element id clashes.
+
 #### JSONSuit
 
 In a form or model admin, enable a JSON suit for a particular field:
@@ -58,11 +65,11 @@ class JSONAdmin(admin.ModelAdmin):
 Enable JSON suit for every JSONField of a model:
 
 ```python
-from django.contrib.postgres.fields import JSONField
+from django.db import models
 
 class JSONAdmin(admin.ModelAdmin):
   formfield_overrides = {
-    JSONField: {'widget': JSONSuit }
+    models.JSONField: {'widget': JSONSuit }
   }
 ```
 
@@ -88,11 +95,11 @@ class ReadonlyJSONAdmin(admin.ModelAdmin):
 Enable readonly JSON suit for every JSONField of a model:
 
 ```python
-from django.contrib.postgres.fields import JSONField
+from django.db import models
 
 class ReadonlyJSONAdmin(admin.ModelAdmin):
   formfield_overrides = {
-    JSONField: {'widget': ReadonlyJSONSuit }
+    models.JSONField: {'widget': ReadonlyJSONSuit }
   }
 ```
 
