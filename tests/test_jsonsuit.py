@@ -119,7 +119,7 @@ class TestJSONSuitTemplateTag(TestCase):
             "{% load jsonsuit %}"
             "{% jsonsuit_js %}"
         ).render(Context())
-        if django.get_version().startswith('1.11') or django.get_version().startswith('2.2'):
+        if django.get_version().startswith('3.2'):
             self.assertEqual(out, '<script type="text/javascript" src="/static/jsonsuit/js/prism.js"></script>\n'
                                   '<script type="text/javascript" src="/static/jsonsuit/js/readonly-jsonsuit.js"></script>')  # noqa
         else:
@@ -132,7 +132,7 @@ class TestJSONSuitTemplateTag(TestCase):
             "{% load jsonsuit %}"
             "{% jsonsuit_css %}"
         ).render(Context())
-        if django.get_version().startswith('1.11'):
+        if django.get_version().startswith('3.2'):
             self.assertEqual(out, '<link href="/static/jsonsuit/css/prism-default.css" type="text/css" media="all" rel="stylesheet" />\n'  # noqa
                                   '<link href="/static/jsonsuit/css/jsonsuit.css" type="text/css" media="all" rel="stylesheet" />')  # noqa
         else:

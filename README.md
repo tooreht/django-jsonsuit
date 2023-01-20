@@ -224,7 +224,7 @@ Tools used in rendering this package:
 - [cookiecutter-djangopackage]
 
   [1]: https://badge.fury.io/py/django-jsonsuit.svg
-  [2]: https://travis-ci.org/tooreht/django-jsonsuit.svg?branch=master
+  [2]: https://github.com/tooreht/django-jsonsuit/actions/workflows/check.yml/badge.svg?branch=master
   [3]: https://codecov.io/gh/tooreht/django-jsonsuit/branch/master/graph/badge.svg
   [Cookiecutter]: https://github.com/audreyr/cookiecutter
   [cookiecutter-djangopackage]: https://github.com/pydanny/cookiecutter-djangopackage
