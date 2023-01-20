@@ -152,7 +152,7 @@ Set JSON syntax highlighter theme in settings:
 JSONSUIT_WIDGET_THEME = 'twilight'
 ```
 
-Available themes: `coy`, `dark`, `default`, `funky`, `okaidia`, `solarizedlight`, `twilight`. Defaults to the `default` theme.
+Available themes: `coy`, `dark`, `default`, `funky`, `okaidia`, `solarizedlight`, `twilight`, `tomorrow`. Defaults to the `default` theme.
 
 ### Custom Widget Media
 
