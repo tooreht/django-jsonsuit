@@ -1,6 +1,8 @@
 # django-jsonsuit
 
-![image][1] ![image][2] ![image][3]
+[![PyPI version](https://badge.fury.io/py/django-jsonsuit.svg)](https://badge.fury.io/py/django-jsonsuit)
+[![CI Status](https://github.com/tooreht/django-jsonsuit/actions/workflows/check.yml/badge.svg?branch=master)](https://github.com/tooreht/django-jsonsuit/actions/workflows/check.yml)
+[![Test Coverage](https://codecov.io/gh/tooreht/django-jsonsuit/branch/master/graph/badge.svg)](https://codecov.io/gh/tooreht/django-jsonsuit/branch/master/)
 
 Django goodies to dress JSON data in a suit.
 
@@ -227,9 +229,6 @@ Tools used in rendering this package:
 - [cookiecutter-djangopackage]
 - [Zest.releaser]
 
-  [1]: https://badge.fury.io/py/django-jsonsuit.svg
-  [2]: https://github.com/tooreht/django-jsonsuit/actions/workflows/check.yml/badge.svg?branch=master
-  [3]: https://codecov.io/gh/tooreht/django-jsonsuit/branch/master/graph/badge.svg
   [Cookiecutter]: https://github.com/audreyr/cookiecutter
   [cookiecutter-djangopackage]: https://github.com/pydanny/cookiecutter-djangopackage
   [Zest.releaser]: https://zestreleaser.readthedocs.io
