@@ -38,3 +38,5 @@ jobs:
         run: tox r --skip-pkg-install
         env:
           PYTEST_ADDOPTS: "-vv --durations=10"
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v3
