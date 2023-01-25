@@ -17,13 +17,13 @@ register = Library()
 @register.simple_tag
 def jsonsuit_css():
     widget = ReadonlyJSONSuit()
-    return widget.media['css']
+    return widget.media["css"]
 
 
 @register.simple_tag
 def jsonsuit_js():
     widget = ReadonlyJSONSuit()
-    return widget.media['js']
+    return widget.media["js"]
 
 
 @register.simple_tag
@@ -33,6 +33,4 @@ def jsonsuit(obj, name=None):
     if isinstance(obj, str) and obj:
         obj = json.loads(obj)
     widget = ReadonlyJSONSuit()
-    return mark_safe(widget.render(
-        name=name,
-        value=json.dumps(obj, ensure_ascii=False)))
+    return mark_safe(widget.render(name=name, value=json.dumps(obj, ensure_ascii=False)))

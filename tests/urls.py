@@ -5,6 +5,6 @@ from django.urls import include, path
 from django.contrib import admin
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('jsonsuit.urls', namespace='jsonsuit')),
+    path("admin/", admin.site.urls),
+    path("", include("jsonsuit.urls", namespace="jsonsuit")),
 ]

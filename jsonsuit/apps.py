@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 
 class JSONSuitConfig(AppConfig):
-    name = 'jsonsuit'
+    name = "jsonsuit"
