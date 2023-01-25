@@ -115,26 +115,22 @@ class TestJSONSuitTemplateTag(TestCase):
 
     def test_jsonsuit_tag_js(self):
         "The jsonsuit template tag js default includes."
-        out = Template(
-            "{% load jsonsuit %}"
-            "{% jsonsuit_js %}"
-        ).render(Context())
-        if django.get_version().startswith('3.2'):
-            self.assertEqual(out, '<script type="text/javascript" src="/static/jsonsuit/js/prism.js"></script>\n'
-                                  '<script type="text/javascript" src="/static/jsonsuit/js/readonly-jsonsuit.js"></script>')  # noqa
-        else:
-            self.assertEqual(out, '<script src="/static/jsonsuit/js/prism.js"></script>\n'
-                                  '<script src="/static/jsonsuit/js/readonly-jsonsuit.js"></script>')
+        out = Template("{% load jsonsuit %}" "{% jsonsuit_js %}").render(Context())
+        self.assertEqual(
+            out,
+            '<script src="/static/jsonsuit/js/prism.js"></script>\n'
+            '<script src="/static/jsonsuit/js/readonly-jsonsuit.js"></script>',
+        )
 
     def test_jsonsuit_tag_css(self):
         "The jsonsuit template tag css default includes."
-        out = Template(
-            "{% load jsonsuit %}"
-            "{% jsonsuit_css %}"
-        ).render(Context())
-        if django.get_version().startswith('3.2'):
-            self.assertEqual(out, '<link href="/static/jsonsuit/css/prism-default.css" type="text/css" media="all" rel="stylesheet" />\n'  # noqa
-                                  '<link href="/static/jsonsuit/css/jsonsuit.css" type="text/css" media="all" rel="stylesheet" />')  # noqa
+        out = Template("{% load jsonsuit %}" "{% jsonsuit_css %}").render(Context())
+        if django.get_version().startswith("3.2"):
+            self.assertEqual(
+                out,
+                '<link href="/static/jsonsuit/css/prism-default.css" type="text/css" media="all" rel="stylesheet">\n'  # noqa
+                '<link href="/static/jsonsuit/css/jsonsuit.css" type="text/css" media="all" rel="stylesheet">',
+            )  # noqa
         else:
             self.assertEqual(out, '<link href="/static/jsonsuit/css/prism-default.css" media="all" rel="stylesheet">\n'  # noqa
                                   '<link href="/static/jsonsuit/css/jsonsuit.css" media="all" rel="stylesheet">')  # noqa

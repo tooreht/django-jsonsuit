@@ -1,0 +1,66 @@
+[tool.black]
+line-length = 95
+target-version = [ "py39", "py310", "py311" ]
+
+[tool.poetry]
+name = "django-jsonsuit"
+version = "0.5.0"
+description = "Django goodies to dress JSON data in a suit"
+authors = ["tooreht <tooreht@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://tooreht.github.io/django-jsonsuit"
+repository = "https://github.com/tooreht/django-jsonsuit"
+documentation = "https://tooreht.github.io/django-jsonsuit"
+keywords = ["django-jsonsuit", "django", "json", "suit"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+packages = [{include = "jsonsuit"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+django = ">=3.2"
+
+[tool.poetry.group.dev.dependencies]
+markdown-include = "^0.8.0"
+mkdocs = "^1.4.2"
+black = "^22.12.0"
+
+[tool.poetry.group.test.dependencies]
+codecov = "^2.1.12"
+pytest = "^7.2.1"
+pytest-django = "^4.5.2"
+pytest-cov = "^4.0.0"
+tox = "^4.3.5"
+
+[tool.poe.tasks]
+clean = "git clean -fx"
+format = "black ."
+test = "pytest --cov=./jsonsuit"
+style = [
+  { ref = "format" },
+  { cmd = "flake8 ." },
+  { cmd = "isort ." },
+]
+build = [
+  { cmd = "poetry build" },
+  { cmd = "mkdocs build" },
+]
+publish = [
+  { cmd = "poetry publish" },
+  { cmd = "mkdocs gh-deploy" },
+]
+release = ["test", "build", "publish"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

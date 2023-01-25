@@ -6,7 +6,32 @@ on:
     - cron: "0 8 * * *"
 
 jobs:
+  linting:
+    runs-on: ubuntu-latest
+    steps:
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      #----------------------------------------------
+      #        load pip cache if cache exists
+      #----------------------------------------------
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip
+          restore-keys: ${{ runner.os }}-pip
+      #----------------------------------------------
+      #          install and run linters
+      #----------------------------------------------
+      - run: python -m pip install black flake8 isort
+      - run: |
+          # flake8 .
+          black . --check
+          isort .
   test:
+    needs: linting
     name: test ${{ matrix.dj }} - ${{ matrix.py }} - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
@@ -21,22 +46,69 @@ jobs:
           - "3.10"
           - "3.9"
         dj:
-          - "django-master"
-          - "django-41"
-          - "django-32"
+          - "4.1"
+          - "3.2"
+    defaults:
+      run:
+        shell: bash
     steps:
-      - name: Setup python for test ${{ matrix.py }}
-        uses: actions/setup-python@v2
+      #----------------------------------------------
+      #       check-out repo and set-up python
+      #----------------------------------------------
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Set up python ${{ matrix.py }}
+        id: setup-python
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.py }}
-      - uses: actions/checkout@v2
-      - name: Install tox-gh
-        run: python -m pip install tox-gh
-      - name: Setup test suite
-        run: tox r -vv --notest
-      - name: Run test suite
-        run: tox r --skip-pkg-install
-        env:
-          PYTEST_ADDOPTS: "-vv --durations=10"
-      - name: Upload coverage reports to Codecov with GitHub Action
+      #----------------------------------------------
+      #  -----  install & configure poetry  -----
+      #----------------------------------------------
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+      #----------------------------------------------
+      #       load cached venv if cache exists
+      #----------------------------------------------
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.py }}-${{ hashFiles('**/poetry.lock') }}
+      #----------------------------------------------
+      # install dependencies if cache does not exist
+      #----------------------------------------------
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+      #----------------------------------------------
+      # install your root project, if required
+      #----------------------------------------------
+      - name: Install library
+        run: poetry install --no-interaction
+      #----------------------------------------------
+      #    add matrix specifics, run test suite
+      #         and output coverage file
+      #----------------------------------------------
+      - name: Install django ${{ matrix.dj }}
+        run: |
+          source $VENV
+          pip install "Django==${{ matrix.dj }}"
+      - name: Run tests
+        run: |
+          source $VENV
+          poetry run pytest --cov=./jsonsuit --cov-report=xml
+      #----------------------------------------------
+      #             upload coverage stats
+      # (requires CODECOV_TOKEN in repository secrets)
+      #----------------------------------------------
+      - name: Upload coverage
         uses: codecov/codecov-action@v3
+        with:
+          # token: ${{ secrets.CODECOV_TOKEN }}  # Only required for private repositories
+          file: ./coverage.xml
+          fail_ci_if_error: true
