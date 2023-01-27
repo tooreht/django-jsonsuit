@@ -3,14 +3,14 @@ on:
   push:
   pull_request:
   schedule:
-    - cron: "0 8 * * *"
+    - cron: "0 0 * * *"
 
 jobs:
-  linting:
+  style:
     runs-on: ubuntu-latest
     steps:
       #----------------------------------------------
-      #       check-out repo and set-up python
+      #        checkout repo and setup python
       #----------------------------------------------
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -23,16 +23,56 @@ jobs:
           key: ${{ runner.os }}-pip
           restore-keys: ${{ runner.os }}-pip
       #----------------------------------------------
-      #          install and run linters
+      #               install nox
       #----------------------------------------------
-      - run: python -m pip install black flake8 isort
-      - run: |
-          # flake8 .
-          black . --check
-          isort .
+      - name: Install nox
+        run: python -m pip install nox nox-poetry
+      #----------------------------------------------
+      #             run style checks
+      #----------------------------------------------
+      - name: Run style checks
+        run: nox -t style
+  versions:
+    needs: style
+    runs-on: ubuntu-latest
+    steps:
+      #----------------------------------------------
+      #        checkout repo and setup python
+      #----------------------------------------------
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+      #----------------------------------------------
+      #        load pip cache if cache exists
+      #----------------------------------------------
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip
+          restore-keys: ${{ runner.os }}-pip
+      #----------------------------------------------
+      #               install nox
+      #----------------------------------------------
+      - name: Install nox
+        run: python -m pip install nox nox-poetry
+      #----------------------------------------------
+      #         prepare test versions
+      #----------------------------------------------
+      - name: Prepare test versions
+        id: read-versions
+        run: |
+          py_versions=$(nox -s py_versions)
+          dj_versions=$(nox -s dj_versions)
+          exclude=$(nox -s gha_matrix_exclude)
+          echo "py_versions=$py_versions" >> $GITHUB_OUTPUT
+          echo "dj_versions=$dj_versions" >> $GITHUB_OUTPUT
+          echo "exclude=$exclude" >> $GITHUB_OUTPUT
+    outputs:
+      py_versions: ${{ steps.read-versions.outputs.py_versions }}
+      dj_versions: ${{ steps.read-versions.outputs.dj_versions }}
+      exclude: ${{ steps.read-versions.outputs.exclude }}
   test:
-    needs: linting
-    name: test ${{ matrix.dj }} - ${{ matrix.py }} - ${{ matrix.os }}
+    needs: versions
+    name: test ${{ matrix.dj }} | ${{ matrix.py }} | ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
@@ -41,67 +81,38 @@ jobs:
           - Ubuntu
           - Windows
           - MacOs
-        py:
-          - "3.11"
-          - "3.10"
-          - "3.9"
-        dj:
-          - "4.1"
-          - "3.2"
+        py: ${{ fromJson(needs.versions.outputs.py_versions).values }}
+        dj: ${{ fromJson(needs.versions.outputs.dj_versions).keys }}
+        exclude: ${{ fromJson(needs.versions.outputs.exclude) }}
     defaults:
       run:
         shell: bash
     steps:
       #----------------------------------------------
-      #       check-out repo and set-up python
+      #        checkout repo and setup python
       #----------------------------------------------
-      - name: Check out repository
-        uses: actions/checkout@v3
-      - name: Set up python ${{ matrix.py }}
-        id: setup-python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.py }}
       #----------------------------------------------
-      #  -----  install & configure poetry  -----
+      #        load pip cache if cache exists
       #----------------------------------------------
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
+      - uses: actions/cache@v3
         with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip
+          restore-keys: ${{ runner.os }}-pip
       #----------------------------------------------
-      #       load cached venv if cache exists
+      #           install nox and poetry
       #----------------------------------------------
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.py }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Install nox
+        run: python -m pip install nox nox-poetry poetry
       #----------------------------------------------
-      # install dependencies if cache does not exist
+      #       run nox test session
       #----------------------------------------------
-      - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
-      #----------------------------------------------
-      # install your root project, if required
-      #----------------------------------------------
-      - name: Install library
-        run: poetry install --no-interaction
-      #----------------------------------------------
-      #    add matrix specifics, run test suite
-      #         and output coverage file
-      #----------------------------------------------
-      - name: Install django ${{ matrix.dj }}
-        run: |
-          source $VENV
-          pip install "Django==${{ matrix.dj }}"
-      - name: Run tests
-        run: |
-          source $VENV
-          poetry run pytest --cov=./jsonsuit --cov-report=xml
+      - name: Run test session
+        run: nox -s "test(py-${{ matrix.py }}-${{ matrix.dj }})"
       #----------------------------------------------
       #             upload coverage stats
       # (requires CODECOV_TOKEN in repository secrets)

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
-from __future__ import unicode_literals
+from __future__ import absolute_import, unicode_literals
 
 """
 test_django-jsonsuit
@@ -10,19 +9,19 @@ test_django-jsonsuit
 Tests for `django-jsonsuit`.
 """
 
-from django.test import TestCase
-from django.template import Context, Template
-
-from jsonsuit.app_settings import (
-    WIDGET_MEDIA_JS,
-    WIDGET_MEDIA_CSS,
-    READONLY_WIDGET_MEDIA_JS,
-    READONLY_WIDGET_MEDIA_CSS,
-)
-from tests.forms import EditableTestForm, ReadonlyTestForm
+import re
 
 import django
-import re
+from django.template import Context, Template
+from django.test import TestCase
+
+from jsonsuit.app_settings import (
+    READONLY_WIDGET_MEDIA_CSS,
+    READONLY_WIDGET_MEDIA_JS,
+    WIDGET_MEDIA_CSS,
+    WIDGET_MEDIA_JS,
+)
+from tests.forms import EditableTestForm, ReadonlyTestForm
 
 
 class TestJSONSuitWidget(TestCase):
@@ -63,10 +62,12 @@ class TestReadonlyJSONSuitWidget(TestCase):
     def test_widget_html(self):
         self.assertTrue(self.form.is_valid())
         self.assertTrue(
-            self.form.fields.get("stats").widget.media["js"], list(READONLY_WIDGET_MEDIA_JS)
+            self.form.fields.get("stats").widget.media["js"],
+            list(READONLY_WIDGET_MEDIA_JS),
         )
         self.assertTrue(
-            self.form.fields.get("stats").widget.media["css"], list(READONLY_WIDGET_MEDIA_CSS)
+            self.form.fields.get("stats").widget.media["css"],
+            list(READONLY_WIDGET_MEDIA_CSS),
         )
         html = self.form.as_table()
         self.assertIn('<div class="jsonsuit readonly" data-jsonsuit="stats">', html)
@@ -101,9 +102,9 @@ class TestJSONSuitTemplateTag(TestCase):
 
     def test_jsonsuit_tag_string(self):
         "The jsonsuit template tag retrieves a string to render as JSON with the name 'string_test'."
-        out = Template("{% load jsonsuit %}" "{% jsonsuit data 'string_test' %}").render(
-            Context({"data": '{"stats": ["rookies", "newbies", "experts"]}'})
-        )
+        out = Template(
+            "{% load jsonsuit %}" "{% jsonsuit data 'string_test' %}"
+        ).render(Context({"data": '{"stats": ["rookies", "newbies", "experts"]}'}))
         self.assertEqual(
             out,
             """<div class="jsonsuit readonly" data-jsonsuit="string_test">
@@ -116,9 +117,9 @@ class TestJSONSuitTemplateTag(TestCase):
 
     def test_jsonsuit_tag_empty_string(self):
         "The jsonsuit template tag retrieves an empty string to render as JSON with the name 'empty_string_test'."
-        out = Template("{% load jsonsuit %}" "{% jsonsuit data 'empty_string_test' %}").render(
-            Context({"data": '""'})
-        )
+        out = Template(
+            "{% load jsonsuit %}" "{% jsonsuit data 'empty_string_test' %}"
+        ).render(Context({"data": '""'}))
         self.assertEqual(
             out,
             """<div class="jsonsuit readonly" data-jsonsuit="empty_string_test">

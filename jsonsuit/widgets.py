@@ -2,10 +2,10 @@ from django.forms import widgets
 from django.template.loader import render_to_string
 
 from .app_settings import (
-    WIDGET_MEDIA_JS,
-    WIDGET_MEDIA_CSS,
-    READONLY_WIDGET_MEDIA_JS,
     READONLY_WIDGET_MEDIA_CSS,
+    READONLY_WIDGET_MEDIA_JS,
+    WIDGET_MEDIA_CSS,
+    WIDGET_MEDIA_JS,
 )
 
 
@@ -27,7 +27,8 @@ class JSONSuit(widgets.Textarea):
 class ReadonlyJSONSuit(widgets.Widget):
     def render(self, name, value, attrs=None, renderer=None):
         return render_to_string(
-            "jsonsuit/readonly_widget.html", {"name": name, "value": value, "attrs": attrs}
+            "jsonsuit/readonly_widget.html",
+            {"name": name, "value": value, "attrs": attrs},
         )
 
     class Media:

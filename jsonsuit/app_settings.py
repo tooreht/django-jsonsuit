@@ -7,14 +7,25 @@ def check_theme(name):
         return name
     else:
         raise ImproperlyConfigured(
-            "JSONSUIT_WIDGET_THEME must be one of {}".format(", ".join(AVAILABLE_THEMES))
+            "JSONSUIT_WIDGET_THEME must be one of {}".format(
+                ", ".join(AVAILABLE_THEMES)
+            )
         )
 
 
 AVAILABLE_THEMES = getattr(
     settings,
     "JSONSUIT_AVAILABLE_THEMES",
-    ["coy", "dark", "default", "funky", "okaidia", "solarizedlight", "twilight", "tomorrow"],
+    [
+        "coy",
+        "dark",
+        "default",
+        "funky",
+        "okaidia",
+        "solarizedlight",
+        "twilight",
+        "tomorrow",
+    ],
 )
 WIDGET_THEME = getattr(settings, "JSONSUIT_WIDGET_THEME", "default")
 
@@ -28,7 +39,9 @@ SYNTAX_HIGHLIGHTER_CSS = getattr(
 )
 
 WIDGET_MEDIA_JS = getattr(
-    settings, "JSONSUIT_WIDGET_MEDIA_JS", SYNTAX_HIGHLIGHTER_JS + ("jsonsuit/js/jsonsuit.js",)
+    settings,
+    "JSONSUIT_WIDGET_MEDIA_JS",
+    SYNTAX_HIGHLIGHTER_JS + ("jsonsuit/js/jsonsuit.js",),
 )
 WIDGET_MEDIA_CSS = getattr(
     settings,
