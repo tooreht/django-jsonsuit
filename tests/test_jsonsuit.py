@@ -19,7 +19,7 @@ from jsonsuit.app_settings import (
     READONLY_WIDGET_MEDIA_JS,
     READONLY_WIDGET_MEDIA_CSS,
 )
-from tests.forms import TestForm, ReadonlyTestForm
+from tests.forms import EditableTestForm, ReadonlyTestForm
 
 import django
 import re
@@ -27,7 +27,9 @@ import re
 
 class TestJSONSuitWidget(TestCase):
     def setUp(self):
-        self.form = TestForm(data={"stats": {"rookies": 10, "newbies": 50, "experts": 2}})
+        self.form = EditableTestForm(
+            data={"stats": {"rookies": 10, "newbies": 50, "experts": 2}}
+        )
 
     def test_widget_html(self):
         self.assertTrue(self.form.is_valid())

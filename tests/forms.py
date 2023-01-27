@@ -6,7 +6,7 @@ from django import forms
 from jsonsuit.widgets import JSONSuit, ReadonlyJSONSuit
 
 
-class TestForm(forms.Form):
+class EditableTestForm(forms.Form):
     stats = forms.CharField(widget=JSONSuit)
 
 
