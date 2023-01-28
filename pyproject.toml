@@ -64,6 +64,11 @@ publish = [
 ]
 release = ["test", "build", "publish"]
 
+[tool.poetry-release]
+release-replacements = [
+    { file="CHANGELOG.md", pattern="\\[Unreleased\\]", replace="[{version}] - {date}" },
+]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

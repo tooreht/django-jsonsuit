@@ -1,3 +1,3 @@
 # Release Notes
 
-{!HISTORY.md!}
+{!CHANGELOG.md!}
