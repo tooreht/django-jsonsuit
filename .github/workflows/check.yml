@@ -13,25 +13,18 @@ jobs:
       #        checkout repo and setup python
       #----------------------------------------------
       - uses: actions/checkout@v3
+      - name: Install poetry
+        run: pipx install poetry
       - uses: actions/setup-python@v4
-      #----------------------------------------------
-      #        load pip cache if cache exists
-      #----------------------------------------------
-      - uses: actions/cache@v3
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip
-          restore-keys: ${{ runner.os }}-pip
-      #----------------------------------------------
-      #               install nox
-      #----------------------------------------------
-      - name: Install nox
-        run: python -m pip install nox nox-poetry
+          python-version: '3.10'
+          cache: 'poetry'
+      - run: poetry install --only test
       #----------------------------------------------
       #             run style checks
       #----------------------------------------------
       - name: Run style checks
-        run: nox -t style
+        run: poetry run nox -t style
   versions:
     needs: style
     runs-on: ubuntu-latest
@@ -40,29 +33,22 @@ jobs:
       #        checkout repo and setup python
       #----------------------------------------------
       - uses: actions/checkout@v3
+      - name: Install poetry
+        run: pipx install poetry
       - uses: actions/setup-python@v4
-      #----------------------------------------------
-      #        load pip cache if cache exists
-      #----------------------------------------------
-      - uses: actions/cache@v3
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip
-          restore-keys: ${{ runner.os }}-pip
-      #----------------------------------------------
-      #               install nox
-      #----------------------------------------------
-      - name: Install nox
-        run: python -m pip install nox nox-poetry
+          python-version: '3.11'
+          cache: 'poetry'
+      - run: poetry install --only test
       #----------------------------------------------
       #         prepare test versions
       #----------------------------------------------
       - name: Prepare test versions
         id: read-versions
         run: |
-          py_versions=$(nox -s py_versions)
-          dj_versions=$(nox -s dj_versions)
-          exclude=$(nox -s gha_matrix_exclude)
+          py_versions=$(poetry run nox -s py_versions)
+          dj_versions=$(poetry run nox -s dj_versions)
+          exclude=$(poetry run nox -s gha_matrix_exclude)
           echo "py_versions=$py_versions" >> $GITHUB_OUTPUT
           echo "dj_versions=$dj_versions" >> $GITHUB_OUTPUT
           echo "exclude=$exclude" >> $GITHUB_OUTPUT
@@ -92,27 +78,18 @@ jobs:
       #        checkout repo and setup python
       #----------------------------------------------
       - uses: actions/checkout@v3
+      - name: Install poetry
+        run: pipx install poetry
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.py }}
-      #----------------------------------------------
-      #        load pip cache if cache exists
-      #----------------------------------------------
-      - uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip
-          restore-keys: ${{ runner.os }}-pip
-      #----------------------------------------------
-      #           install nox and poetry
-      #----------------------------------------------
-      - name: Install nox
-        run: python -m pip install nox nox-poetry poetry
+          cache: 'poetry'
+      - run: poetry install --only test
       #----------------------------------------------
       #       run nox test session
       #----------------------------------------------
       - name: Run test session
-        run: nox -s "test(py-${{ matrix.py }}-${{ matrix.dj }})"
+        run: poetry run nox -s "test(py-${{ matrix.py }}-${{ matrix.dj }})"
       #----------------------------------------------
       #             upload coverage stats
       # (requires CODECOV_TOKEN in repository secrets)
