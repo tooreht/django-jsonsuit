@@ -57,36 +57,42 @@ development.
 
         $ git clone git@github.com:your_name_here/django-jsonsuit.git
 
-3.  Install your local copy into a virtualenv. Assuming you have
-    virtualenvwrapper installed, this is how you set up your fork for
-    local development:
+3.  Install poetry
 
-        $ mkvirtualenv django-jsonsuit
-        $ cd django-jsonsuit/
-        $ python setup.py develop
+        $ python -m pip install poetry
 
-4.  Create a branch for local development:
+4. Install poetry plugins
+
+        $ poetry self add 'poethepoet[poetry_plugin]'
+        $ poetry self add poetry-release
+
+5. Install dependencies
+
+        $ poetry install
+
+6.  Create a branch for local development:
 
         $ git checkout -b name-of-your-bugfix-or-feature
 
     Now you can make your changes locally.
 
-5.  When you're done making changes, check that your changes pass flake8
-    and the tests, including testing other Python versions with tox:
+7.  When you're done making changes, check that your changes pass style
+    and unit tests:
 
-        $ flake8 jsonsuit tests
-        $ python setup.py test
-        $ tox
+        $ poetry poe style
+        $ poetry poe test
 
-    To get flake8 and tox, just pip install them into your virtualenv.
+8. It is also possible to test other Python and Django versions with nox
 
-6.  Commit your changes and push your branch to GitHub:
+        $ poetry run nox
+
+9.  Commit your changes and push your branch to GitHub:
 
         $ git add .
         $ git commit -m "Your detailed description of your changes."
         $ git push origin name-of-your-bugfix-or-feature
 
-7.  Submit a pull request through the GitHub website.
+10.  Submit a pull request through the GitHub website.
 
 ## Pull Request Guidelines
 
@@ -99,9 +105,3 @@ Before you submit a pull request, check that it meets these guidelines:
 3.  The pull request should work for Python 3.9, 3.10, 3.11 and for
     PyPy. Check <https://github.com/tooreht/django-jsonsuit/actions>
     and make sure that the tests pass for all supported Python versions.
-
-## Tips
-
-To run a subset of tests:
-
-    $ python -m unittest tests.test_jsonsuit

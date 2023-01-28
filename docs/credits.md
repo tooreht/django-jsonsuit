@@ -13,10 +13,7 @@ Project documentation:
 
 Tools used in rendering this package:
 
-- [Cookiecutter]
-- [cookiecutter-djangopackage]
-
-  [Cookiecutter]: https://github.com/audreyr/cookiecutter
-  [cookiecutter-djangopackage]: https://github.com/pydanny/cookiecutter-djangopackage
+- [Poetry](https://python-poetry.org/)
+- [Nox](https://nox.thea.codes/)
 
 {!AUTHORS.md!}

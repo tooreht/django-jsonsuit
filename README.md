@@ -198,37 +198,3 @@ jsonsuit/templates
     └── widget.html
     └── readonly_widget.html
 ```
-
-## Running Tests
-
-Does the code actually work?
-
-    source <YOURVIRTUALENV>/bin/activate
-    (myenv) $ pip install tox
-    (myenv) $ tox
-
-## Development commands
-
-    pip install -r requirements_dev.txt
-    invoke -l
-
-## Credits
-
-Project dependencies:
-
-- [prism](http://prismjs.com/)
-- [vanilla-js](http://vanilla-js.com/)
-
-Project documentation:
-
-- [MkDocs](http://www.mkdocs.org/)
-
-Tools used in rendering this package:
-
-- [Cookiecutter]
-- [cookiecutter-djangopackage]
-- [Zest.releaser]
-
-  [Cookiecutter]: https://github.com/audreyr/cookiecutter
-  [cookiecutter-djangopackage]: https://github.com/pydanny/cookiecutter-djangopackage
-  [Zest.releaser]: https://zestreleaser.readthedocs.io
